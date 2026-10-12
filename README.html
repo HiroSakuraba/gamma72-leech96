@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sphere Packing Lattices</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5d5b55;--line:#e3e0d8;--card:#ffffff;--accent:#2f5d8a;--ok:#2e7d4f;--warn:#a5672a;--bad:#a33a3a;--code:#f2f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--line:#2e2d2a;--card:#1c1c1a;--accent:#8db4dc;--ok:#7cc79a;--warn:#e0a865;--bad:#e08585;--code:#22221f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:2rem;margin:0 0 .3rem;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:2.4rem 0 .8rem;padding-top:.6rem;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+p,li{color:var(--fg)}
+.lede{color:var(--muted);font-size:1.05rem;margin:.2rem 0 1.2rem}
+a{color:var(--accent)}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em}
+code{background:var(--code);padding:.1em .35em;border-radius:4px}
+pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;line-height:1.45}
+pre code{background:none;padding:0}
+.table-wrap{overflow-x:auto;margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.callout{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:1rem 0}
+.meta{color:var(--muted);font-size:.9rem}
+ul{padding-left:1.2rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Sphere Packing Lattices</h1>
+<p class="lede">New dense packings in dimensions 67–71 from Nebe's 72-dimensional lattice, and a search for an extremal 96-dimensional lattice built from the Leech lattice.</p>
+<p class="meta">Benjamin John Schulz · computations October 12, 2026 · Python (NumPy, SymPy, python-flint, fpylll, NetworkX)</p>
+
+<div class="callout"><strong>Status in one line.</strong> Verified antipode packings beating every possible cross-section of Γ72 in dimensions 67–71; no extremal 96-dimensional lattice yet, but several construction families are now ruled out with proofs and explicit certificates.</div>
+
+<h2>1. Antipode packings from Γ72 (dimensions 66–71)</h2>
+<p>For a saturated rank-<em>k</em> cross-section <em>K</em> of the extremal lattice Γ72 (minimum 8, determinant 1) and a cluster <em>S</em> ⊂ <em>K</em>* of squared diameter β, stacking |<em>S</em>| shifted copies of the orthogonal slice gives a packing in dimension 72 − <em>k</em> with center density</p>
+<pre><code>δ = |S| · det(K)^(-1/2) · ((8 − β)/4)^((72−k)/2)</code></pre>
+<p>(Conway–Sloane 1996; Chen et al. 2025, Thm 1). The ceiling column is the Hermite bound on the best any cross-section of Γ72 could do.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Dim</th><th>det K</th><th>|S|</th><th>β</th><th>log₂ δ</th><th>Cross-section ceiling</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>71</td><td class="num">10</td><td>2</td><td class="num">1/10</td><td class="num">34.1948</td><td class="num">34.0000</td><td><span class="badge ok">beats ceiling</span></td></tr>
+<tr><td>70</td><td class="num">48</td><td>3</td><td class="num">1/6</td><td class="num">32.7294</td><td class="num">32.2075</td><td><span class="badge ok">beats ceiling</span></td></tr>
+<tr><td>69</td><td class="num">300</td><td>4</td><td class="num">1/5</td><td class="num">31.1255</td><td class="num">30.5000</td><td><span class="badge ok">beats ceiling</span></td></tr>
+<tr><td>68</td><td class="num">2000</td><td>5</td><td class="num">1/5</td><td class="num">29.5972</td><td class="num">29.0000</td><td><span class="badge ok">beats ceiling</span></td></tr>
+<tr><td>67</td><td class="num">12272</td><td>6</td><td class="num">777/3068</td><td class="num">27.7387</td><td class="num">27.5000</td><td><span class="badge ok">beats ceiling</span></td></tr>
+<tr><td>66</td><td class="num">30720</td><td>7</td><td class="num">3/8</td><td class="num">26.0682</td><td class="num">26.2075</td><td><span class="badge warn">below ceiling</span></td></tr>
+</tbody></table></div>
+<p>Every certificate is checked exactly: saturation via Smith normal form, an explicit integer vector of Γ72 realizing each translate, rational β, and density. Relies on min(Γ72) = 8 (Nebe 2012). The standard tables (Nebe–Sloane, Cohn) list no packings in dimensions 65–71; stacking layers on Nebe's Ne64 was not evaluated and could compete in dimension 67.</p>
+
+<h2>2. Toward an extremal 96-dimensional lattice</h2>
+<p>An extremal even unimodular lattice in dimension 96 would have minimum norm 10. Whether one exists is open (rank 88 was settled in Sept 2026).</p>
+
+<h3>Results</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Route</th><th>Outcome</th><th>Kind</th></tr></thead>
+<tbody>
+<tr><td>Leech ⊗ rank-4 partner over Q(√−23)</td><td>All partners fail for both Gauss-sum Leech structures; 24 built candidates killed by explicit norm-4/6 vectors</td><td><span class="badge bad">proof + certificates</span></td></tr>
+<tr><td>Same over Q(√−d), d = 3, 4, 7, 8</td><td>Hermite bound caps the partner; split vectors have norm ≤ 8</td><td><span class="badge bad">proof</span></td></tr>
+<tr><td>Same over Q(√−11)</td><td>Needs an extremal 8-dim 11-modular partner; theta series admissible, none found in genus walk; literature says it lacks the needed structure</td><td><span class="badge warn">evidence + citation</span></td></tr>
+<tr><td>Symmetric Paley Construction A, A = mC + cI over Z/N</td><td>All 53 lattices (N = 10…48) killed by vectors in the order-47 fixed sublattice, including 14 BKZ-40 survivors</td><td><span class="badge bad">proof + certificates</span></td></tr>
+<tr><td>Z16 Paley 3-cycle deformation (supplied candidate)</td><td>Verified even unimodular; BKZ to block 45 finds min 10; no norm ≤ 8 vector with u ≡ 0 (mod 4)</td><td><span class="badge warn">open</span></td></tr>
+<tr><td>E₈ ⊗ J₂₄ over Z[(1+√−7)/2]</td><td>Required extremal 7-modular J₂₄ has admissible theta series 1 + 84672q⁵ + …</td><td><span class="badge ok">open lead</span></td></tr>
+</tbody></table></div>
+
+<h3>Automorphism screen</h3>
+<p>From the standard lemma on prime-order automorphisms (fixed lattice of determinant p<sup>s</sup>, s ≤ min(dim F, k)) with Hermite/Blichfeldt bounds, an extremal 96-dimensional lattice has:</p>
+<ul>
+<li>no automorphism of prime order 31 ≤ p ≤ 89 (in particular none of order 47);</li>
+<li>order 97 only fixed-point-free (an ideal lattice in Q(ζ₉₇));</li>
+<li>order 23 only with a 74-dimensional fixed lattice; order 29 only with 68;</li>
+<li>order 19: fixed dimension 78 or 6; order 17: 80 or fixed-point-free; order 13: 84, 72, 12 or fixed-point-free.</li>
+</ul>
+
+<h2>Repository layout</h2>
+<pre><code>gamma72_antipode/          Γ72 Gram matrix, certificates, search and exact verifier
+leech96_hermitian/         Leech O-structures (Q(√−23), Q(√−11)), partners, 96-dim builds,
+                           twist minima, kill certificates, 11-modular theta, genus walk
+leech96_symmetry_screen/   symmetric Paley family, fixed-sublattice kills, automorphism
+                           screen, 7-modular theta
+z16_candidate_checks/      independent check, BKZ logs and mod-4 layer certificate
+                           for the Z16 3-cycle candidate
+HANDOFF.html               session handoff: state, gotchas, next steps</code></pre>
+
+<h2>Quick start</h2>
+<pre><code>pip install numpy sympy python-flint fpylll networkx
+
+# Γ72 antipode certificates (exact)
+cd gamma72_antipode
+python3 verify.py gamma72.json certs.json out.json
+python3 verify.py gamma72.json improved_66_certificate.json out66.json
+
+# Leech96: twist obstruction certificates (needs leech23.json, cands.json)
+cd ../leech96_hermitian
+python3 kill_cert.py . cands.json kill_certs_rerun.json
+
+# Symmetric Paley family: explicit kills from the order-47 fixed sublattice
+cd ../leech96_symmetry_screen
+python3 fixedkill.py paley_sym.json fixedkill_rerun.json
+python3 aut_screen.py
+
+# Z16 candidate: structure check + BKZ (block ≤ 40) and mod-4 layer certificate
+cd ../z16_candidate_checks
+python3 z16_check_and_kill.py candidate_3cycle.json 2 40 kill_rerun.json
+python3 layer4.py candidate_3cycle.json layer4_rerun.json</code></pre>
+<p class="meta">fpylll wheels may ship without strategy files; the scripts avoid them (unpruned BKZ, direct enumeration).</p>
+
+<h2>What is and is not claimed</h2>
+<ul>
+<li><strong>Proved / exactly certified:</strong> the Γ72 packings above (given min Γ72 = 8); the Q(√−23) and small-discriminant obstructions; the kills of all 24 Hermitian candidates and all 53 symmetric Paley lattices; the mod-4 layer of the Z16 candidate; the automorphism screen (given the standard lemma).</li>
+<li><strong>Heuristic only:</strong> BKZ non-detection of short vectors; the Q(√−11) genus walk.</li>
+<li><strong>Not claimed:</strong> absolute record status in dimensions 65–71; existence or nonexistence of an extremal 96-dimensional lattice.</li>
+</ul>
+
+<h2>References</h2>
+<ul>
+<li>Conway &amp; Sloane, <a href="https://arxiv.org/abs/math/0207182">The antipode construction for sphere packings</a> (1996).</li>
+<li>Chen, Hu, Li, Wang, Wu, <a href="https://arxiv.org/abs/2505.02394">New sphere packings from the antipode construction</a> (2025).</li>
+<li>Nebe, <a href="https://arxiv.org/abs/1008.2862">An even unimodular 72-dimensional lattice of minimum 8</a>; <a href="https://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/neb72.html">Γ72 in the Catalogue of Lattices</a>.</li>
+<li>Coulangeon &amp; Nebe, <a href="https://arxiv.org/abs/1201.1832">Dense lattices as Hermitian tensor products</a>.</li>
+<li>Sakamoto, <a href="https://arxiv.org/abs/2609.15633">Two extremal even unimodular lattices of rank 88</a> (2026).</li>
+<li>Kominers, <a href="https://arxiv.org/abs/2606.08733">Degree-2 Siegel theta series of extremal lattices of ranks 48–120</a> (2026).</li>
+<li>Viazovska, <a href="https://arxiv.org/abs/1603.04246">The sphere packing problem in dimension 8</a>; Cohn, Kumar, Miller, Radchenko, Viazovska, <a href="https://arxiv.org/abs/1603.06518">dimension 24</a>.</li>
+</ul>
+</main>
+</body>
+</html>

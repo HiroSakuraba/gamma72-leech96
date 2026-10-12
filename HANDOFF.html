@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session Handoff</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5d5b55;--line:#e3e0d8;--card:#ffffff;--accent:#2f5d8a;--ok:#2e7d4f;--warn:#a5672a;--bad:#a33a3a;--code:#f2f0ea}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#a8a69f;--line:#2e2d2a;--card:#1c1c1a;--accent:#8db4dc;--ok:#7cc79a;--warn:#e0a865;--bad:#e08585;--code:#22221f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:1.9rem;margin:0 0 .3rem}
+h2{font-size:1.25rem;margin:2.2rem 0 .8rem;padding-top:.6rem;border-top:1px solid var(--line)}
+h3{font-size:1.02rem;margin:1.4rem 0 .4rem}
+.lede{color:var(--muted);margin:.2rem 0 1.2rem}
+a{color:var(--accent)}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em}
+code{background:var(--code);padding:.1em .35em;border-radius:4px}
+pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;line-height:1.45}
+pre code{background:none;padding:0}
+.table-wrap{overflow-x:auto;margin:.6rem 0 1rem}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+.badge{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.callout{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:1rem 0}
+.callout.warn{border-left-color:var(--warn)}
+ol,ul{padding-left:1.3rem}
+li{margin:.25rem 0}
+.meta{color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Session Handoff</h1>
+<p class="lede">Γ72 antipode packings and the extremal 96-dimensional lattice search — state as of October 12, 2026, 16:05 ET.</p>
+<p class="meta">Owner: Benjamin John Schulz · Repository folder: <code>sphere-packing-lattices/</code> (see README.html)</p>
+
+<div class="callout"><strong>Where things stand.</strong> Dimensions 67–71: done and exactly verified. Dimension 66: improved but still below the cross-section ceiling. Dimension 96: no extremal lattice; four construction families closed with proofs; one supplied candidate (Z16 3-cycle) and two research leads remain open.</div>
+
+<h2>1. Γ72 antipode packings</h2>
+<h3>Done</h3>
+<ul>
+<li>Certificates for dims 71, 70, 69, 68, 67 all beat the Hermite ceiling for any cross-section of Γ72 (log₂ δ = 34.1948, 32.7294, 31.1255, 29.5972, 27.7387).</li>
+<li>Dim 66: Ben's improved certificate (det K = 30720, |S| = 7, β = 3/8, log₂ δ = 26.0682) re-verified with the original exact checker. Ceiling is 26.2075, so dim 66 is <em>not</em> claimed.</li>
+<li>Dim 65: best pattern found (≈ 24.25) is below the ceiling (25.0); not pursued further.</li>
+</ul>
+<h3>Caveats to carry forward</h3>
+<ul>
+<li>Everything assumes min(Γ72) = 8 (Nebe's theorem; not re-enumerated).</li>
+<li>No published records exist for dims 65–71 in the Nebe–Sloane or Cohn tables. Layering on Ne64 (2^25.36 in dim 64) was not evaluated; dim 67 is the claim most exposed to that comparison.</li>
+</ul>
+<h3>Next</h3>
+<ol>
+<li>Evaluate Ne64 laminations for dims 65–67 (needs Ne64's deep holes).</li>
+<li>Dim 66 and 65: search rank-6/7 cross-sections from Γ72 automorphism orbits and longer-support norm-8 vectors; target log₂ δ &gt; 26.2075 (dim 66).</li>
+<li>Write up dims 67–71 as a short note with the certificate files.</li>
+</ol>
+
+<h2>2. Extremal 96-dimensional lattice</h2>
+<h3>Closed routes (with proofs)</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Route</th><th>Why it fails</th><th>Evidence</th></tr></thead>
+<tbody>
+<tr><td>Leech ⊗ partner over Q(√−23)</td><td>Class number 3: some ideal twist of Leech has roots, and pairing it with the twisted partner gives a vector of norm ≤ 8</td><td><span class="badge bad">proof</span> 24 explicit certificates</td></tr>
+<tr><td>Over Q(√−d), d ≤ 8 (incl. Γ72's ring)</td><td>Partner's Hermitian minimum ≤ √d, so split vectors have norm ≤ 8</td><td><span class="badge bad">proof</span></td></tr>
+<tr><td>Symmetric Paley, A = mC + cI over Z/N</td><td>Order-47 symmetry has a 4-dim fixed sublattice with min ≤ 9.70, so ≤ 8</td><td><span class="badge bad">proof</span> 53 explicit vectors</td></tr>
+<tr><td>Any construction with an automorphism of prime order 31–89</td><td>Automorphism screen</td><td><span class="badge bad">proof</span> (standard lemma)</td></tr>
+</tbody></table></div>
+
+<h3>Open</h3>
+<ul>
+<li><strong>Q(√−11) partners</strong> <span class="badge warn">likely closed</span>: needs an extremal 8-dim 11-modular lattice with Hermitian structure. Theta series 1 + 120q³ + … is admissible, but the genus walk found none, and Ben's update cites Scharlau–Schulze-Pillot (1998) that the unique such lattice lacks the structure. Not independently re-checked.</li>
+<li><strong>Z16 3-cycle candidate</strong> (Ben's): even unimodular verified exactly; BKZ to block 45 finds min 10; layers u ≡ 0 (mod 8) and (mod 4) certified free of norm ≤ 8. Odd and 2-mod-4 layers open.</li>
+</ul>
+
+<h3>Leads, ranked</h3>
+<ol>
+<li><strong>E₈ ⊗ J₂₄ over Z[(1+√−7)/2].</strong> Class number 1, split norm 2 × 5 = 10, order-7 symmetry allowed by the screen. Requires an extremal 7-modular 24-dim lattice J with Hermitian structure; its theta series 1 + 84672q⁵ + 91728q⁶ + … is admissible. Steps: build a √−7 structure on E₈ (Gauss sum over an order-7 Weyl element, as done for Leech), search/construct J, kill-test rank 2–4 tensors.</li>
+<li><strong>Ideal lattices in Q(ζ₉₇)</strong> (fixed-point-free order 97 allowed). Analogue of Nebe's "large automorphism" classification for 72. Needs class groups/units — Magma or PARI on a bigger machine.</li>
+<li><strong>Fixed-point-free order 13 or 17</strong> Hermitian lattices over Z[ζ₁₃] (rank 8) or Z[ζ₁₇] (rank 6), in the style of Sakamoto's rank 88.</li>
+<li><strong>Nonexistence attempt:</strong> compute Kominers' uniquely determined degree-2 Siegel theta series for rank 96 and test coefficient positivity/integrality.</li>
+<li><strong>Z16 candidate:</strong> extend layer certificates to 2-mod-4 and odd layers; BKZ ≥ 50 on a larger machine.</li>
+</ol>
+
+<h2>3. Gotchas learned this session</h2>
+<div class="callout warn"><strong>BKZ lies by omission.</strong> Twice, lattices that "survived" BKZ-30/40 had norm-4–8 vectors hiding in small structured sublattices (ideal twists; automorphism fixed lattices). Always run the structural checks (twist pairing, fixed sublattice of every known automorphism, automorphism screen) before trusting a survivor.</div>
+<ul>
+<li><strong>fpylll strategy files missing</strong> in the pip wheel: <code>BKZ.DEFAULT_STRATEGY</code> and <code>SVP.shortest_vector</code> fail. Use unpruned BKZ and <code>svp_util.py</code> (direct enumeration).</li>
+<li><strong>fpylll Gram-mode LLL</strong> (<code>GSO.INT_GRAM</code>) returned a non-reduced transform; use <code>gram_lll.py</code> for small Gram matrices.</li>
+<li><strong>SymPy HNF/det are too slow</strong> at 96×96 or 192×96; use python-flint (<code>fmpz_mat.hnf()</code>, <code>.det()</code>).</li>
+<li><strong>Integer overflow:</strong> neighbor-walk bases blow up; keep big ints in Python/FLINT until after LLL.</li>
+<li><strong>Killing background jobs:</strong> <code>pkill -f &lt;name&gt;</code> also matches the invoking shell; filter by <code>comm == python3</code>.</li>
+<li>BKZ-45 on a 96-dim lattice takes ≈ 13 minutes on 2 cores; BKZ-50 did not finish a round in an hour.</li>
+</ul>
+
+<h2>4. Files and provenance</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Folder</th><th>Contents</th><th>Origin</th></tr></thead>
+<tbody>
+<tr><td><code>gamma72_antipode/</code></td><td>Γ72 Gram (Nebe–Sloane catalogue), certificates, pattern search, exact verifier</td><td>This session; <code>improved_66_certificate.json</code> from Ben's update</td></tr>
+<tr><td><code>leech96_hermitian/</code></td><td>QR-Golay Leech, Q(√−23)/Q(√−11) structures, partners, builds, twist minima, kill certificates, θ for 11-modular, genus walk</td><td>This session</td></tr>
+<tr><td><code>leech96_symmetry_screen/</code></td><td>Symmetric Paley family, fixed-sublattice kills, automorphism screen, θ for 7-modular</td><td>This session</td></tr>
+<tr><td><code>z16_candidate_checks/</code></td><td>Independent structure check, BKZ logs, mod-4 layer certificate</td><td>This session; <code>candidate_3cycle.json</code> from Ben's Z16 route</td></tr>
+</tbody></table></div>
+<p class="meta">Not included: Ben's own <code>z16_route/</code> scripts and the audit/proof write-ups from his update; merge them from the uploaded zips if the repo should hold everything.</p>
+
+<h2>5. Environment</h2>
+<pre><code>Python 3.13 · numpy · sympy 1.14 · python-flint 0.9 · fpylll 0.6.4 · networkx
+Network: Nebe–Sloane catalogue reachable over HTTPS (Γ72 Gram was parsed from neb72.html)</code></pre>
+</main>
+</body>
+</html>

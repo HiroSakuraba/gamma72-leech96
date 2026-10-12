@@ -1,0 +1,56 @@
+p=11  blocks k= 1  dim F=86  max Hermite bound on min(F) = 12.07 -> open
+p=11  blocks k= 2  dim F=76  max Hermite bound on min(F) = 11.22 -> open
+p=11  blocks k= 3  dim F=66  max Hermite bound on min(F) = 10.40 -> open
+p=11  blocks k= 4  dim F=56  max Hermite bound on min(F) = 9.63 -> EXCLUDED
+p=11  blocks k= 5  dim F=46  max Hermite bound on min(F) = 8.94 -> EXCLUDED
+p=11  blocks k= 6  dim F=36  max Hermite bound on min(F) = 8.45 -> EXCLUDED
+p=11  blocks k= 7  dim F=26  max Hermite bound on min(F) = 8.43 -> EXCLUDED
+p=11  blocks k= 8  dim F=16  max Hermite bound on min(F) = 10.46 -> open
+p=11  blocks k= 9  dim F= 6  max Hermite bound on min(F) = 18.32 -> open
+p=13  blocks k= 1  dim F=84  max Hermite bound on min(F) = 11.85 -> open
+p=13  blocks k= 2  dim F=72  max Hermite bound on min(F) = 10.79 -> open
+p=13  blocks k= 3  dim F=60  max Hermite bound on min(F) = 9.77 -> EXCLUDED
+p=13  blocks k= 4  dim F=48  max Hermite bound on min(F) = 8.84 -> EXCLUDED
+p=13  blocks k= 5  dim F=36  max Hermite bound on min(F) = 8.09 -> EXCLUDED
+p=13  blocks k= 6  dim F=24  max Hermite bound on min(F) = 7.60 -> EXCLUDED
+p=13  blocks k= 7  dim F=12  max Hermite bound on min(F) = 11.77 -> open
+p=13  blocks k= 8  dim F= 0  fixed-point-free: no constraint from F
+p=17  blocks k= 1  dim F=80  max Hermite bound on min(F) = 11.41 -> open
+p=17  blocks k= 2  dim F=64  max Hermite bound on min(F) = 9.92 -> EXCLUDED
+p=17  blocks k= 3  dim F=48  max Hermite bound on min(F) = 8.52 -> EXCLUDED
+p=17  blocks k= 4  dim F=32  max Hermite bound on min(F) = 7.36 -> EXCLUDED
+p=17  blocks k= 5  dim F=16  max Hermite bound on min(F) = 7.64 -> EXCLUDED
+p=17  blocks k= 6  dim F= 0  fixed-point-free: no constraint from F
+p=19  blocks k= 1  dim F=78  max Hermite bound on min(F) = 11.19 -> open
+p=19  blocks k= 2  dim F=60  max Hermite bound on min(F) = 9.48 -> EXCLUDED
+p=19  blocks k= 3  dim F=42  max Hermite bound on min(F) = 7.90 -> EXCLUDED
+p=19  blocks k= 4  dim F=24  max Hermite bound on min(F) = 6.53 -> EXCLUDED
+p=19  blocks k= 5  dim F= 6  max Hermite bound on min(F) = 19.37 -> open
+p=23  blocks k= 1  dim F=74  max Hermite bound on min(F) = 10.74 -> open
+p=23  blocks k= 2  dim F=52  max Hermite bound on min(F) = 8.60 -> EXCLUDED
+p=23  blocks k= 3  dim F=30  max Hermite bound on min(F) = 6.73 -> EXCLUDED
+p=23  blocks k= 4  dim F= 8  max Hermite bound on min(F) = 9.59 -> EXCLUDED
+p=29  blocks k= 1  dim F=68  max Hermite bound on min(F) = 10.05 -> open
+p=29  blocks k= 2  dim F=40  max Hermite bound on min(F) = 7.28 -> EXCLUDED
+p=29  blocks k= 3  dim F=12  max Hermite bound on min(F) = 6.12 -> EXCLUDED
+p=31  blocks k= 1  dim F=66  max Hermite bound on min(F) = 9.82 -> EXCLUDED
+p=31  blocks k= 2  dim F=36  max Hermite bound on min(F) = 6.85 -> EXCLUDED
+p=31  blocks k= 3  dim F= 6  max Hermite bound on min(F) = 9.27 -> EXCLUDED
+p=37  blocks k= 1  dim F=60  max Hermite bound on min(F) = 9.13 -> EXCLUDED
+p=37  blocks k= 2  dim F=24  max Hermite bound on min(F) = 5.40 -> EXCLUDED
+p=41  blocks k= 1  dim F=56  max Hermite bound on min(F) = 8.67 -> EXCLUDED
+p=41  blocks k= 2  dim F=16  max Hermite bound on min(F) = 5.02 -> EXCLUDED
+p=43  blocks k= 1  dim F=54  max Hermite bound on min(F) = 8.44 -> EXCLUDED
+p=43  blocks k= 2  dim F=12  max Hermite bound on min(F) = 4.93 -> EXCLUDED
+p=47  blocks k= 1  dim F=50  max Hermite bound on min(F) = 7.97 -> EXCLUDED
+p=47  blocks k= 2  dim F= 4  max Hermite bound on min(F) = 9.70 -> EXCLUDED
+p=53  blocks k= 1  dim F=44  max Hermite bound on min(F) = 7.27 -> EXCLUDED
+p=59  blocks k= 1  dim F=38  max Hermite bound on min(F) = 6.58 -> EXCLUDED
+p=61  blocks k= 1  dim F=36  max Hermite bound on min(F) = 6.35 -> EXCLUDED
+p=67  blocks k= 1  dim F=30  max Hermite bound on min(F) = 5.66 -> EXCLUDED
+p=71  blocks k= 1  dim F=26  max Hermite bound on min(F) = 5.21 -> EXCLUDED
+p=73  blocks k= 1  dim F=24  max Hermite bound on min(F) = 4.78 -> EXCLUDED
+p=79  blocks k= 1  dim F=18  max Hermite bound on min(F) = 4.35 -> EXCLUDED
+p=83  blocks k= 1  dim F=14  max Hermite bound on min(F) = 3.97 -> EXCLUDED
+p=89  blocks k= 1  dim F= 8  max Hermite bound on min(F) = 3.51 -> EXCLUDED
+p=97  blocks k= 1  dim F= 0  fixed-point-free: no constraint from F

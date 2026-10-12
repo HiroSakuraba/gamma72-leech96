@@ -1,0 +1,6 @@
+A A^T = -I mod 16: True; rows of [I|A] norm = 0 mod 32: True; Gram integral: True; even: True; det = 1; positive definite: True
+supplied witness: in lattice True, norm 12.0
+run 0 BKZ-20: shortest norm 16.0  (1s)
+run 0 BKZ-30: shortest norm 14.0  (2s)
+run 0 BKZ-40: shortest norm 10.0  (44s)
+run 0 BKZ-45: shortest norm 10.0  (811s)
