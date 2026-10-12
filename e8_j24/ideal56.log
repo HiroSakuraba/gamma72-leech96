@@ -1,0 +1,11 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+degree 24 class group [2]
+unit rank 11 torsion order 56 real units (incl -1) 12
+ideal class reps: 2
+class rep 1: real lam found; real units 11 + sign
+  lam #1: even True, det = 7^12.0, pairs of norm <= 8: 5656, min 4  [2s]
+  lam #2: even True, det = 7^12.0, pairs of norm <= 8: 2016, min 8  [3s]
+  lam #3: even True, det = 7^12.0, pairs of norm <= 8: 5656, min 4  [9s]
+  lam #4: even True, det = 7^12.0, pairs of norm <= 8: 2016, min 8  [10s]
+class rep 2: real lam found; real units 11 + sign
+done 4 lattices tested

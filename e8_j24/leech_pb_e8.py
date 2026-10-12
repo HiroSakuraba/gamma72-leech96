@@ -4,7 +4,7 @@ L = span{ (p1 x, p2 x, p3 x) } in E8^3, Z-form = 1/2 sum b_E8(y_i, y_i)."""
 import sys, json
 import numpy as np
 import flint
-sys.path.insert(0, "/home/claude/gamma72-leech96/leech96_hermitian")
+import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "leech96_hermitian"))
 from svp_util import shortest_vector, count_short
 from fpylll import IntegerMatrix
 e8 = json.load(open(sys.argv[1]))[0]

@@ -5,7 +5,7 @@ Hill-climb with random symplectic transvections; score = number of vector pairs 
 import sys, json, random, time
 import numpy as np
 import flint
-sys.path.insert(0, "/home/claude/gamma72-leech96/leech96_hermitian")
+import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "leech96_hermitian"))
 from svp_util import count_short
 from fpylll import IntegerMatrix
 D = json.load(open(sys.argv[1])); iters = int(sys.argv[2]); seed = int(sys.argv[3]); out = sys.argv[4]

@@ -45,7 +45,7 @@ An extremal even unimodular lattice in dimension 96 would have minimum norm 10. 
 | Same over Q(√−d), d ≤ 8 | ❌ Closed by proof: the Hermite bound caps the partner's minimum |
 | Symmetric Paley codes, A = mC + cI over Z/N | ❌ Closed by proof: an order-47 symmetry forces a short vector; all 53 lattices killed explicitly |
 | Deformed Z/16 Paley code | ⭕ Open: even unimodular, BKZ to block 45 finds min 10, one full layer certified clear |
-| E₈ ⊗ J₂₄ over Z[(1+√−7)/2] | 🔷 Lead: class number 1, split norm exactly 10, required theta series admissible |
+| E₈ ⊗ J₂₄ over Z[(1+√−7)/2] | 🔷 Lead, narrowed: class number 1, split norm exactly 10, theta series admissible. No extremal 7-modular J yet: sublattices of Leech, symmetric and neighbour searches stall near 1,700 short pairs, and an exhaustive search of ideal lattices in Q(ζ₃₅), Q(ζ₅₆), Q(ζ₈₄) finds minimum 8 at best |
 
 An automorphism filter (standard prime-order lemma plus Hermite and Blichfeldt bounds) shows an extremal 96-dimensional lattice has no automorphism of prime order 31 to 89, order 97 only fixed-point-free, and order 23 only with a 74-dimensional fixed lattice.
 
@@ -57,12 +57,13 @@ An automorphism filter (standard prime-order lemma plus Hermite and Blichfeldt b
 | [`leech96_hermitian/`](leech96_hermitian) | Leech Q(√−23) and Q(√−11) structures, tensor candidates, twist-obstruction certificates |
 | [`leech96_symmetry_screen/`](leech96_symmetry_screen) | Symmetric Paley family, fixed-sublattice kills, automorphism filter, 7-modular theta |
 | [`z16_candidate_checks/`](z16_candidate_checks) | Independent checks and layer certificate for the Z/16 candidate |
+| [`e8_j24/`](e8_j24) | √−7 structures on E₈ and Leech, searches for the 24-dimensional partner J |
 | [`assets/`](assets) | Figures used on this page |
 
 ## Run the checks
 
 ```bash
-pip install numpy sympy python-flint fpylll networkx
+pip install numpy sympy python-flint fpylll networkx cypari2
 
 cd gamma72_antipode
 python3 verify.py gamma72.json certs.json out.json
@@ -77,11 +78,15 @@ python3 aut_screen.py
 
 cd ../z16_candidate_checks
 python3 layer4.py candidate_3cycle.json layer4_rerun.json
+
+cd ../e8_j24
+python3 j24_ideal.py 84 ideal84_rerun.json
 ```
 
 ## What is and is not claimed
 
 - **Proven or exactly certified:** the packings in dimensions 66–71 (given Γ72's minimum), the Q(√−23) and small-discriminant obstructions, the explicit kills of all Hermitian candidates and symmetric Paley lattices, the mod-4 layer of the Z/16 candidate, and the automorphism filter.
+- **Computed under GRH (PARI):** the ideal-lattice search for J in Q(ζ₃₅), Q(ζ₅₆), Q(ζ₈₄).
 - **Evidence only:** lattice-reduction searches that find no short vector, and the genus walk over Q(√−11).
 - **Not claimed:** record status in dimensions 65–71, or anything about whether an extremal 96-dimensional lattice exists.
 

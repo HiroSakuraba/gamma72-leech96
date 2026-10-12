@@ -172,7 +172,7 @@ footer{margin-top:5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-
   <li>
     <span class="status s-lead"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 .8L9.2 5 5 9.2.8 5z" fill="currentColor"/></svg>Lead</span>
     <div><span class="route-name">E₈ <span class="op">⊗</span> J₂₄ over Z[(1+√−7)/2]</span>
-    <span class="route-why">Class number 1, so no twist trap, and split vectors land exactly on norm 10. It needs an extremal 24-dimensional 7-modular lattice J; its forced theta series 1 + 84672 q⁵ + 91728 q⁶ + … is admissible.</span></div>
+    <span class="route-why">Class number 1, so no twist trap, and split vectors land exactly on norm 10. It needs an extremal 24-dimensional 7-modular lattice J, whose forced theta series 1 + 84672 q⁵ + 91728 q⁶ + … is admissible. None found yet: Leech is now built as P<sub>b</sub> <span class="op">⊗</span> E₈ with an explicit √−7, but its 7-modular sublattices, symmetric versions and Kneser neighbours all stall near 1,700 short vector pairs, and a complete search of ideal lattices in Q(ζ₃₅), Q(ζ₅₆) and Q(ζ₈₄) reaches minimum 8 at best.</span></div>
   </li>
 </ul>
 
@@ -188,7 +188,7 @@ footer{margin-top:5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-
 
 <section aria-labelledby="h-run">
 <h2 id="h-run">Run the checks</h2>
-<pre><code>pip install numpy sympy python-flint fpylll networkx
+<pre><code>pip install numpy sympy python-flint fpylll networkx cypari2
 
 cd gamma72_antipode
 python3 verify.py gamma72.json certs.json out.json
@@ -203,13 +203,17 @@ python3 aut_screen.py
 
 cd ../z16_candidate_checks
 python3 layer4.py candidate_3cycle.json layer4_rerun.json
-python3 z16_check_and_kill.py candidate_3cycle.json 2 40 kill_rerun.json</code></pre>
+python3 z16_check_and_kill.py candidate_3cycle.json 2 40 kill_rerun.json
+
+cd ../e8_j24
+python3 j24_ideal.py 84 ideal84_rerun.json</code></pre>
 <p class="small">The pip build of fpylll may lack its pruning-strategy files; the scripts avoid them.</p>
 </section>
 
 <section aria-labelledby="h-claims">
 <h2 id="h-claims">What is and is not claimed</h2>
 <p><strong>Proven or exactly certified:</strong> the packings in dimensions 66–71 (given Γ72's minimum), the obstructions for Q(√−23) and small discriminants, the explicit kills of all 24 Hermitian candidates and all 53 symmetric Paley lattices, the mod-4 layer of the Z/16 candidate, and the automorphism filter.</p>
+<p><strong>Computed under GRH:</strong> the complete ideal-lattice search for J in Q(ζ₃₅), Q(ζ₅₆) and Q(ζ₈₄), which relies on PARI's class groups and units.</p>
 <p><strong>Evidence only:</strong> lattice-reduction searches that find no short vector, and the genus walk over Q(√−11).</p>
 <p><strong>Not claimed:</strong> record status in dimensions 65–71, and anything about whether an extremal 96-dimensional lattice exists.</p>
 </section>

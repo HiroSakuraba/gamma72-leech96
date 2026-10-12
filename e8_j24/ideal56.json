@@ -1,0 +1,86 @@
+[
+ {
+  "class_rep": 1,
+  "signs": [
+   0,
+   0,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "even": true,
+  "det": 13841287201,
+  "short_pairs": 5656,
+  "minimum": 4
+ },
+ {
+  "class_rep": 1,
+  "signs": [
+   0,
+   0,
+   1,
+   1,
+   0,
+   1,
+   1,
+   0,
+   1,
+   0,
+   1,
+   1
+  ],
+  "even": true,
+  "det": 13841287201,
+  "short_pairs": 2016,
+  "minimum": 8
+ },
+ {
+  "class_rep": 1,
+  "signs": [
+   1,
+   1,
+   0,
+   0,
+   1,
+   0,
+   0,
+   0,
+   1,
+   0,
+   1,
+   1
+  ],
+  "even": true,
+  "det": 13841287201,
+  "short_pairs": 5656,
+  "minimum": 4
+ },
+ {
+  "class_rep": 1,
+  "signs": [
+   1,
+   1,
+   0,
+   1,
+   1,
+   1,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "even": true,
+  "det": 13841287201,
+  "short_pairs": 2016,
+  "minimum": 8
+ }
+]
