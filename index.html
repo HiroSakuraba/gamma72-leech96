@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gamma72 and Leech96</title>
+<meta name="description" content="Dense sphere packings in dimensions 67–71 from Nebe's lattice Γ72, and a search for an extremal 96-dimensional lattice built from the Leech lattice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,650;1,7..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F8FA; --ink:#1A2133; --ink-2:#4B5468; --ink-3:#6E7689; --rule:#D8DCE4; --wash:#EDF0F5;
+  --neg:#1F6FB2; --pos:#B8860B; --zero:#E2E6ED;
+  --good:#2E7D4F; --warn:#9C6A06; --bad:#A63A3A;
+  --code:#EDF0F5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#131722; --ink:#E4E7EE; --ink-2:#B3B9C7; --ink-3:#8C93A3; --rule:#2A3040; --wash:#1B2030;
+    --neg:#4A8BCB; --pos:#BD8722; --zero:#252B3A;
+    --good:#6CC08F; --warn:#D8A43F; --bad:#E07F7F; --code:#1B2030;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131722; --ink:#E4E7EE; --ink-2:#B3B9C7; --ink-3:#8C93A3; --rule:#2A3040; --wash:#1B2030;
+  --neg:#4A8BCB; --pos:#BD8722; --zero:#252B3A;
+  --good:#6CC08F; --warn:#D8A43F; --bad:#E07F7F; --code:#1B2030;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Literata",Georgia,serif;font-size:18px;line-height:1.65;font-optical-sizing:auto}
+main{max-width:46rem;margin:0 auto;padding:4.5rem 16px 6rem}
+a{color:var(--neg);text-underline-offset:.18em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--neg);outline-offset:3px;border-radius:2px}
+h1{font-size:clamp(2.1rem,6vw,3.1rem);line-height:1.08;font-weight:650;letter-spacing:-.022em;margin:0 0 1.2rem;max-width:21ch}
+h2{font-size:1.55rem;line-height:1.2;font-weight:650;letter-spacing:-.01em;margin:4.5rem 0 1rem}
+h3{font-size:1.1rem;font-weight:650;margin:2.2rem 0 .5rem}
+p{margin:0 0 1rem;max-width:38rem}
+.lede{font-size:1.18rem;color:var(--ink-2);max-width:36rem}
+.links{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin:1.6rem 0 0;padding:0;list-style:none;font-size:.98rem}
+.small{font-size:.92rem;color:var(--ink-3)}
+code,pre{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.82em}
+code{background:var(--code);padding:.08em .32em;border-radius:3px}
+pre{background:var(--code);padding:1rem 1.1rem;border-radius:6px;overflow-x:auto;line-height:1.55;margin:1rem 0 1.4rem}
+pre code{background:none;padding:0;font-size:.8rem}
+.math{font-style:italic}
+.formula{font-size:1.22rem;line-height:1.9;margin:1.2rem 0 1.4rem;padding:.7rem 0 .7rem 1.1rem;border-left:3px solid var(--rule);max-width:38rem}
+.formula sup{font-size:.68em;line-height:0}
+.op{font-family:"Cambria Math","STIX Two Math","DejaVu Serif",serif;font-weight:400}
+
+/* Gram figure: the one bold element */
+figure.gram{margin:3.2rem 0 0}
+.gram-frame{position:relative;width:min(100%,36rem)}
+.gram-frame svg{display:block;width:100%;height:auto}
+.gram-frame rect{shape-rendering:crispEdges}
+.readout{min-height:1.6em;margin-top:.7rem;font-size:.95rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+figcaption{font-size:.95rem;color:var(--ink-2);max-width:36rem;margin-top:.4rem}
+.key{display:flex;flex-wrap:wrap;gap:.3rem 1.3rem;margin:.9rem 0 0;padding:0;list-style:none;font-size:.9rem;color:var(--ink-2)}
+.key li{display:flex;align-items:center;gap:.45rem}
+.sw{width:.9rem;height:.9rem;border-radius:2px;display:inline-block}
+
+/* results chart */
+.chart{margin:1.8rem 0 .6rem}
+.chart svg{display:block;width:100%;max-width:640px;height:auto;overflow:visible}
+.chart text{font-family:"Literata",Georgia,serif;fill:var(--ink-2);font-size:13px}
+.chart .dimlab{fill:var(--ink);font-weight:500}
+.chart .ref{stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:3 4}
+.chart .bar-up{fill:var(--neg)}
+.chart .bar-down{fill:var(--pos)}
+.chart .hit{fill:transparent}
+.chart .hit:hover + .bar-up,.chart .hit:hover + .bar-down{opacity:.82}
+
+table{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums;margin:1rem 0 1.4rem}
+th,td{text-align:right;padding:.45rem .6rem;border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:500;color:var(--ink-3)}
+.table-wrap{overflow-x:auto}
+
+/* dimension-96 routes */
+.routes{list-style:none;margin:1.4rem 0;padding:0}
+.routes li{display:grid;grid-template-columns:9.4rem 1fr;gap:.2rem 1.2rem;padding:1rem 0;border-top:1px solid var(--rule)}
+.routes li:last-child{border-bottom:1px solid var(--rule)}
+.status{font-size:.88rem;font-weight:500;display:flex;gap:.4rem;align-items:baseline;padding-top:.15rem}
+.status svg{width:.75rem;height:.75rem;flex:none;transform:translateY(1px)}
+.s-closed{color:var(--bad)} .s-open{color:var(--warn)} .s-lead{color:var(--good)}
+.route-name{font-weight:650;display:block}
+.route-why{color:var(--ink-2);font-size:.98rem}
+@media (max-width:560px){.routes li{grid-template-columns:1fr}}
+
+.rules{margin:1rem 0;padding-left:1.1rem}
+.rules li{margin:.35rem 0}
+footer{margin-top:5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.9rem;color:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){
+  .gram-frame svg{animation:settle .9s ease-out both}
+  @keyframes settle{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:none}}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Dense packings from Γ72, and the search for the next Leech lattice</h1>
+  <p class="lede">Gabriele Nebe's 72-dimensional lattice Γ72 is the densest known packing in its dimension. Slicing it and restacking shifted copies gives new packings in dimensions 67 to 71. The same toolkit, pointed at dimension 96, closes several routes to an extremal lattice there and narrows down where one could still hide.</p>
+  <ul class="links">
+    <li><a href="https://github.com/HiroSakuraba/gamma72-leech96">Code and certificates on GitHub</a></li>
+    <li><a href="HANDOFF.html">Working notes and next steps</a></li>
+    <li><a href="gamma72_antipode/gamma72.json">Γ72 Gram matrix (JSON)</a></li>
+  </ul>
+</header>
+
+<figure class="gram" aria-labelledby="gram-cap">
+  <div class="gram-frame" id="gram"></div>
+  <p class="readout" id="readout" aria-live="polite">Hover or tap the matrix to read an inner product.</p>
+  <figcaption id="gram-cap">The 72 × 72 Gram matrix of Γ72 in the Nebe–Sloane catalogue basis: every entry is the inner product of two basis vectors. Every basis vector has norm 8, the lattice's minimum. The three dense blocks on the diagonal are each a copy of the Leech lattice scaled by √2 (checked: determinant 2<sup>24</sup>, 196,560 vectors of norm 8), the footprint of Nebe's construction of Γ72 from three copies of Leech. Every packing on this page is built from small pieces of this matrix.</figcaption>
+  <ul class="key" aria-label="Color key">
+    <li><span class="sw" style="background:var(--neg)"></span>negative, down to −4</li>
+    <li><span class="sw" style="background:var(--zero)"></span>zero</li>
+    <li><span class="sw" style="background:var(--pos)"></span>positive, up to 4 (8 on the diagonal)</li>
+  </ul>
+  <noscript><img src="assets/gamma72-gram-light.svg" alt="Heatmap of the Gamma72 Gram matrix" width="576"></noscript>
+</figure>
+
+<section aria-labelledby="h-packings">
+<h2 id="h-packings">Five dimensions past the ceiling</h2>
+<p>Cut Γ72 along a small sublattice <span class="math">K</span> of rank <span class="math">k</span>. What remains is a lattice in dimension 72 − <span class="math">k</span>. The antipode construction of Conway and Sloane stacks several shifted copies of that slice, one for each point of a tight cluster <span class="math">S</span> in the dual of <span class="math">K</span>. The copies sit slightly closer than in Γ72, but there are more of them:</p>
+<p class="formula" aria-label="delta equals S times det K to the minus one half times ((8 minus beta) over 4) to the power (72 minus k) over 2"><span class="math">δ</span> = |<span class="math">S</span>| · det(<span class="math">K</span>)<sup>−1/2</sup> · ((8 − <span class="math">β</span>)/4)<sup>(72 − <span class="math">k</span>)/2</sup></p>
+<p>Here β is the squared diameter of the cluster. The chart compares each packing with the best density that <em>any</em> slice of Γ72 could reach, a hard limit from the Hermite bound.</p>
+
+<div class="chart" id="chart" role="img" aria-label="Density divided by the best possible slice of Gamma72: dimension 71, 1.14; 70, 1.44; 69, 1.54; 68, 1.51; 67, 1.18; 66, 0.91."></div>
+<p class="small">Bars show center density divided by the cross-section ceiling. The dashed line is the ceiling itself.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Dimension</th><th>det K</th><th>|S|</th><th>β</th><th>log₂ δ</th><th>Ceiling</th></tr></thead>
+<tbody>
+<tr><td>71</td><td>10</td><td>2</td><td>1/10</td><td>34.1948</td><td>34.0000</td></tr>
+<tr><td>70</td><td>48</td><td>3</td><td>1/6</td><td>32.7294</td><td>32.2075</td></tr>
+<tr><td>69</td><td>300</td><td>4</td><td>1/5</td><td>31.1255</td><td>30.5000</td></tr>
+<tr><td>68</td><td>2000</td><td>5</td><td>1/5</td><td>29.5972</td><td>29.0000</td></tr>
+<tr><td>67</td><td>12272</td><td>6</td><td>777/3068</td><td>27.7387</td><td>27.5000</td></tr>
+<tr><td>66</td><td>30720</td><td>7</td><td>3/8</td><td>26.0682</td><td>26.2075</td></tr>
+</tbody></table></div>
+<p>Each certificate is checked in exact arithmetic: the slice is saturated, every shifted copy is realized by an explicit integer vector of Γ72, and β and δ are computed as rationals. The results rely on Nebe's theorem that Γ72 has minimum 8. The standard tables list no packings at all in dimensions 65–71, so the fair comparison is with slices of Γ72; stacking layers on Nebe's 64-dimensional lattice has not been evaluated and could compete in dimension 67.</p>
+</section>
+
+<section aria-labelledby="h-96">
+<h2 id="h-96">The search in dimension 96</h2>
+<p>An extremal even unimodular lattice in dimension 96 would have minimum norm 10, the next member of the family that starts with Leech in 24 and Γ72 in 72. Nobody knows whether one exists; dimension 88 was settled only in September 2026. These are the routes tried here.</p>
+<ul class="routes">
+  <li>
+    <span class="status s-closed"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="2"/></svg>Closed by proof</span>
+    <div><span class="route-name">Leech <span class="op">⊗</span> a rank-4 partner over Q(√−23)</span>
+    <span class="route-why">The field has class number 3. Some ideal twist of Leech has roots, and pairing it with the twisted partner always produces a vector of norm at most 8. All 24 candidates built carry explicit certificates.</span></div>
+  </li>
+  <li>
+    <span class="status s-closed"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="2"/></svg>Closed by proof</span>
+    <div><span class="route-name">The same over Q(√−d) for d ≤ 8, including Γ72's ring</span>
+    <span class="route-why">The Hermite bound caps the partner's minimum at √d, so split vectors have norm at most 8.</span></div>
+  </li>
+  <li>
+    <span class="status s-closed"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="2"/></svg>Closed by proof</span>
+    <div><span class="route-name">Symmetric Paley codes, A = mC + cI over Z/N</span>
+    <span class="route-why">All 53 lattices die, including 14 that lattice reduction could not crack: a symmetry of order 47 leaves a 4-dimensional fixed sublattice that must contain a vector of norm at most 8.</span></div>
+  </li>
+  <li>
+    <span class="status s-open"><svg viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Open</span>
+    <div><span class="route-name">A deformed Z/16 Paley code</span>
+    <span class="route-why">Even unimodular, verified exactly. Reduction up to block size 45 finds nothing shorter than norm 10, and one full layer of vectors is proven clear. The rest is not yet certified.</span></div>
+  </li>
+  <li>
+    <span class="status s-lead"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 .8L9.2 5 5 9.2.8 5z" fill="currentColor"/></svg>Lead</span>
+    <div><span class="route-name">E₈ <span class="op">⊗</span> J₂₄ over Z[(1+√−7)/2]</span>
+    <span class="route-why">Class number 1, so no twist trap, and split vectors land exactly on norm 10. It needs an extremal 24-dimensional 7-modular lattice J; its forced theta series 1 + 84672 q⁵ + 91728 q⁶ + … is admissible.</span></div>
+  </li>
+</ul>
+
+<h3>Symmetries an extremal 96-dimensional lattice cannot have</h3>
+<p>A standard lemma on prime-order automorphisms, combined with Hermite and Blichfeldt bounds, gives a fast filter for any construction:</p>
+<ul class="rules">
+  <li>no automorphism of prime order 31 to 89, and in particular none of order 47;</li>
+  <li>order 97 only if it moves every vector, which makes the lattice an ideal lattice in Q(ζ₉₇);</li>
+  <li>order 23 only with a 74-dimensional fixed sublattice, and order 29 only with 68;</li>
+  <li>order 19 with fixed dimension 78 or 6, order 17 with 80 or none, order 13 with 84, 72, 12 or none.</li>
+</ul>
+</section>
+
+<section aria-labelledby="h-run">
+<h2 id="h-run">Run the checks</h2>
+<pre><code>pip install numpy sympy python-flint fpylll networkx
+
+cd gamma72_antipode
+python3 verify.py gamma72.json certs.json out.json
+python3 verify.py gamma72.json improved_66_certificate.json out66.json
+
+cd ../leech96_hermitian
+python3 kill_cert.py . cands.json kill_certs_rerun.json
+
+cd ../leech96_symmetry_screen
+python3 fixedkill.py paley_sym.json fixedkill_rerun.json
+python3 aut_screen.py
+
+cd ../z16_candidate_checks
+python3 layer4.py candidate_3cycle.json layer4_rerun.json
+python3 z16_check_and_kill.py candidate_3cycle.json 2 40 kill_rerun.json</code></pre>
+<p class="small">The pip build of fpylll may lack its pruning-strategy files; the scripts avoid them.</p>
+</section>
+
+<section aria-labelledby="h-claims">
+<h2 id="h-claims">What is and is not claimed</h2>
+<p><strong>Proven or exactly certified:</strong> the packings in dimensions 66–71 (given Γ72's minimum), the obstructions for Q(√−23) and small discriminants, the explicit kills of all 24 Hermitian candidates and all 53 symmetric Paley lattices, the mod-4 layer of the Z/16 candidate, and the automorphism filter.</p>
+<p><strong>Evidence only:</strong> lattice-reduction searches that find no short vector, and the genus walk over Q(√−11).</p>
+<p><strong>Not claimed:</strong> record status in dimensions 65–71, and anything about whether an extremal 96-dimensional lattice exists.</p>
+</section>
+
+<section aria-labelledby="h-refs">
+<h2 id="h-refs">References</h2>
+<ul class="rules">
+  <li>Conway and Sloane, <a href="https://arxiv.org/abs/math/0207182">The antipode construction for sphere packings</a>.</li>
+  <li>Chen, Hu, Li, Wang and Wu, <a href="https://arxiv.org/abs/2505.02394">New sphere packings from the antipode construction</a> (2025).</li>
+  <li>Nebe, <a href="https://arxiv.org/abs/1008.2862">An even unimodular 72-dimensional lattice of minimum 8</a>, and <a href="https://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/neb72.html">Γ72 in the Catalogue of Lattices</a>.</li>
+  <li>Coulangeon and Nebe, <a href="https://arxiv.org/abs/1201.1832">Dense lattices as Hermitian tensor products</a>.</li>
+  <li>Sakamoto, <a href="https://arxiv.org/abs/2609.15633">Two extremal even unimodular lattices of rank 88</a> (2026).</li>
+  <li>Kominers, <a href="https://arxiv.org/abs/2606.08733">Degree-2 Siegel theta series of extremal lattices of ranks 48–120</a> (2026).</li>
+  <li>Viazovska, <a href="https://arxiv.org/abs/1603.04246">The sphere packing problem in dimension 8</a>; Cohn, Kumar, Miller, Radchenko and Viazovska, <a href="https://arxiv.org/abs/1603.06518">dimension 24</a>.</li>
+</ul>
+</section>
+
+<footer>Benjamin John Schulz, October 2026. Computations in Python with NumPy, SymPy, python-flint and fpylll.</footer>
+</main>
+
+<script>
+const GRAM = [[8,0,0,-4,-4,4,-4,0,-2,4,-4,-2,-4,-2,4,2,-4,4,-4,4,2,-2,-4,-2,-2,-1,0,1,0,-2,2,-1,2,-1,1,2,1,1,0,0,2,1,3,-3,0,1,1,0,2,-1,0,-1,-2,0,0,-1,1,1,-1,1,-1,0,2,1,0,3,1,-1,1,0,-1,-1],[0,8,-4,2,2,2,0,4,-2,0,4,2,4,-4,-2,0,-4,-4,-2,4,-4,4,0,-4,1,-2,2,-2,0,1,-1,-1,1,1,-2,0,-1,0,0,0,-1,2,1,-1,1,0,1,1,1,2,0,-1,1,2,-1,1,0,1,0,1,1,-2,-1,0,-3,0,0,1,-1,2,1,-1],[0,-4,8,-4,2,2,0,-4,4,2,-2,2,-4,2,4,-2,2,2,4,-2,4,-2,0,2,0,0,-2,3,-2,-1,-1,0,-2,-1,1,-3,1,0,0,-1,1,-1,-1,0,-1,1,-2,0,0,-2,2,1,-1,0,-1,-2,0,0,0,-2,-1,1,2,-2,2,0,1,-1,1,0,-2,1],[-4,2,-4,8,0,-2,0,0,-2,-4,4,-2,4,-2,-4,-2,0,-4,0,-2,-4,4,0,-2,1,1,-1,-2,1,0,1,2,-1,0,-1,0,0,0,-2,2,-1,0,-2,2,-1,-2,1,1,-1,2,-3,2,1,-1,1,2,-2,-2,1,-1,2,-1,-4,1,-1,-2,-2,1,-3,0,1,0],[-4,2,2,0,8,0,4,0,4,-2,2,4,2,2,-2,0,0,-4,4,0,-2,0,2,2,2,-1,1,-1,-2,2,-2,0,-1,3,-2,-2,-1,0,1,-2,-1,1,-2,1,1,0,-2,0,0,0,2,-1,2,2,0,0,1,2,-1,0,0,1,0,-2,-1,-1,0,1,0,0,-1,1],[4,2,2,-2,0,8,-4,0,0,4,-2,0,-2,-4,2,-2,-4,2,-2,4,2,2,-4,-4,0,-2,0,1,-2,-2,0,-1,0,0,0,-1,0,1,0,0,1,1,1,-2,-1,0,0,0,2,-1,1,0,-2,2,-2,-1,0,2,-1,-1,-1,-1,1,-1,-1,2,0,0,0,1,-2,-2],[-4,0,0,0,4,-4,8,2,4,-2,0,4,2,4,-2,2,4,-2,2,-2,-2,-2,2,4,0,1,1,-1,0,2,-2,1,-1,2,0,-1,0,-1,1,-2,-1,-1,-1,2,1,1,0,0,-2,1,1,-1,2,0,2,2,1,1,0,1,1,1,0,-1,1,-2,0,1,0,0,1,2],[0,4,-4,0,0,0,2,8,0,2,0,0,4,0,-2,0,0,-2,-4,4,-2,0,2,0,1,-1,2,-2,0,1,-2,-2,0,1,-1,0,-2,-1,2,1,-2,1,1,-1,1,0,1,0,1,1,0,-2,0,1,-1,2,0,2,-1,0,0,-1,1,1,-2,0,-1,1,0,0,2,0],[-2,-2,4,-2,4,0,4,0,8,2,-2,4,0,4,2,-2,2,0,4,-2,2,-2,2,2,-1,0,0,2,-1,0,-1,0,-2,0,1,-2,1,-1,0,-2,0,-1,-1,0,-1,1,-1,1,-2,-1,2,1,1,0,1,0,2,1,0,0,1,1,1,-3,1,-1,1,-1,0,0,0,2],[4,0,2,-4,-2,4,-2,2,2,8,-4,0,-2,0,4,-2,-2,2,-2,2,2,-2,-2,-2,-1,-1,0,2,-2,-2,-1,-2,-1,-2,2,-1,1,-1,1,0,1,0,1,-3,0,2,1,0,1,-1,1,0,-3,0,-2,-1,0,2,0,-1,0,-1,3,-1,0,1,0,-2,1,1,0,-1],[-4,4,-2,4,2,-2,0,0,-2,-4,8,2,4,-2,-2,-2,0,-4,2,0,-2,4,2,-2,1,0,0,-1,1,1,0,1,0,0,-2,0,-1,0,-2,1,-1,0,-1,1,0,-1,1,1,-1,2,-1,1,2,0,0,1,-1,-2,2,1,1,-1,-3,0,-1,-2,0,1,-1,1,2,0],[-2,2,2,-2,4,0,4,0,4,0,2,8,0,0,0,0,0,0,4,0,0,0,2,0,-1,-1,2,1,0,1,-1,0,0,1,-1,-2,0,0,0,-2,1,-1,0,-1,0,1,0,1,-2,0,3,0,2,1,1,0,2,1,0,2,0,0,0,-2,1,-1,2,-1,0,1,1,1],[-4,4,-4,4,2,-2,2,4,0,-2,4,0,8,0,-4,-2,0,-4,0,0,-4,4,2,0,1,-1,1,-2,0,1,-1,0,-1,0,-1,0,-2,-1,0,1,-1,1,-1,1,1,-1,1,1,-1,1,-1,0,1,0,0,2,-1,-1,1,0,2,-1,-2,0,-1,-1,-1,1,-1,1,2,1],[-2,-4,2,-2,2,-4,4,0,4,0,-2,0,0,8,0,0,4,0,2,-2,2,-4,2,4,0,2,-1,1,-1,1,-1,1,-1,1,1,0,1,-2,1,-2,-1,-1,-1,1,0,1,-1,-1,-1,0,0,0,0,-1,1,1,1,1,0,0,1,2,1,-2,1,-1,0,0,1,-1,0,1],[4,-2,4,-4,-2,2,-2,-2,2,4,-2,0,-4,0,8,0,0,2,0,0,4,-2,-2,0,-2,1,-2,4,0,-1,0,-1,-1,-3,3,0,2,-1,-2,-1,0,-1,1,-1,-1,3,0,-1,0,0,0,2,-1,0,-1,-2,0,-1,2,0,0,-1,2,-1,0,0,1,-1,1,2,-1,-1],[2,0,-2,-2,0,-2,2,0,-2,-2,-2,0,-2,0,0,8,0,0,-2,0,-2,-2,0,2,-1,0,2,-1,2,1,1,-1,3,1,0,2,0,2,1,-2,0,0,2,0,2,1,0,-1,0,0,1,-2,2,0,2,-1,2,0,-1,2,-1,2,1,2,0,0,1,0,1,0,0,0],[-4,-4,2,0,0,-4,4,0,2,-2,0,0,0,4,0,0,8,0,2,-4,2,-2,2,4,0,3,-2,1,1,1,-1,2,-1,0,1,-1,1,-1,0,0,-2,-3,-2,3,-1,1,0,-1,-2,1,-1,1,1,-1,1,2,0,-1,1,-1,1,1,0,0,2,-3,-1,1,0,0,1,1],[4,-4,2,-4,-4,2,-2,-2,0,2,-4,0,-4,0,2,0,0,8,0,0,4,-2,-2,0,-3,0,0,2,1,-2,2,0,1,-1,2,1,1,1,0,0,3,-2,2,-2,-1,0,0,0,-1,-2,1,0,-1,-1,1,-1,1,0,0,1,-1,1,1,0,3,2,2,-2,1,-1,-1,0],[-4,-2,4,0,4,-2,2,-4,4,-2,2,4,0,2,0,-2,2,0,8,-4,0,0,2,2,-1,0,-1,2,0,0,0,1,-1,0,0,-2,1,0,-1,-1,1,-2,-2,0,-1,0,-1,1,-3,-1,1,2,2,-1,1,-1,1,-1,1,0,1,1,-1,-2,2,-2,2,-2,-1,0,0,2],[4,4,-2,-2,0,4,-2,4,-2,2,0,0,0,-2,0,0,-4,0,-4,8,0,0,-2,-2,1,-1,1,-1,-1,0,-1,-1,1,2,-1,1,-1,0,1,0,-1,2,2,-2,0,0,1,-1,3,1,0,-2,-1,2,-2,1,0,3,-1,1,-1,-1,1,0,-3,2,0,2,0,0,0,-2],[2,-4,4,-4,-2,2,-2,-2,2,2,-2,0,-4,2,4,-2,2,4,0,0,8,-2,0,0,-1,1,-1,3,0,0,0,0,0,-1,1,0,1,-1,-1,-1,0,-1,1,0,-2,1,-1,-1,0,-1,1,1,-1,1,-1,-1,1,0,0,0,-1,0,1,-2,1,1,1,0,2,0,-1,-1],[-2,4,-2,4,0,2,-2,0,-2,-2,4,0,4,-4,-2,-2,-2,-2,0,0,-2,8,0,-4,0,-2,0,0,0,-1,0,0,0,-1,-1,-1,-1,1,-2,0,0,1,0,0,0,-2,1,1,-1,0,-1,2,0,0,-1,0,-1,-2,1,-1,1,-1,-3,-1,-1,0,0,0,-1,2,1,-1],[-4,0,0,0,2,-4,2,2,2,-2,2,2,2,2,-2,0,2,-2,2,-2,0,0,8,2,1,-1,2,-1,1,2,-1,-2,0,0,-2,-1,-2,0,1,0,-1,1,0,0,1,-1,-2,1,-1,-1,2,-1,2,0,0,-1,1,-1,-1,0,-1,1,0,0,0,0,1,-1,1,-1,2,2],[-2,-4,2,-2,2,-4,4,0,2,-2,-2,0,0,4,0,2,4,0,2,-2,0,-4,2,8,1,1,-1,0,-1,2,-2,0,-2,1,0,-1,-1,-1,1,0,-1,0,-2,2,1,1,-2,-2,0,-1,0,-1,0,0,0,0,-1,0,-1,-1,-1,1,1,1,1,0,-1,1,1,-1,-1,2],[-2,1,0,1,2,0,0,1,-1,-1,1,-1,1,0,-2,-1,0,-3,-1,1,-1,0,1,1,8,0,0,-4,-4,4,-4,0,-2,4,-4,-2,-4,-2,4,2,-4,4,-4,4,2,-2,-4,-2,2,1,0,-1,0,2,-2,1,-2,1,-1,-2,-1,-1,0,0,-2,-1,-3,3,0,-1,-1,0],[-1,-2,0,1,-1,-2,1,-1,0,-1,0,-1,-1,2,1,0,3,0,0,-1,1,-2,-1,1,0,8,-4,2,2,2,0,4,-2,0,4,2,4,-4,-2,0,-4,-4,-2,4,-4,4,0,-4,-1,2,-2,2,0,-1,1,1,-1,-1,2,0,1,0,0,0,1,-2,-1,1,-1,0,-1,-1],[0,2,-2,-1,1,0,1,2,0,0,0,2,1,-1,-2,2,-2,0,-1,1,-1,0,2,-1,0,-4,8,-4,2,2,0,-4,4,2,-2,2,-4,2,4,-2,2,2,4,-2,4,-2,0,2,0,0,2,-3,2,1,1,0,2,1,-1,3,-1,0,0,1,-1,1,1,0,1,-1,2,0],[1,-2,3,-2,-1,1,-1,-2,2,2,-1,1,-2,1,4,-1,1,2,2,-1,3,0,-1,0,-4,2,-4,8,0,-2,0,0,-2,-4,4,-2,4,-2,-4,-2,0,-4,0,-2,-4,4,0,-2,-1,-1,1,2,-1,0,-1,-2,1,0,1,0,0,0,2,-2,1,0,2,-2,1,2,-1,-1],[0,0,-2,1,-2,-2,0,0,-1,-2,1,0,0,-1,0,2,1,1,0,-1,0,0,1,-1,-4,2,2,0,8,0,4,0,4,-2,2,4,2,2,-2,0,0,-4,4,0,-2,0,2,2,-2,1,-1,1,2,-2,2,0,1,-3,2,2,1,0,-1,2,1,-1,2,-1,-1,0,2,0],[-2,1,-1,0,2,-2,2,1,0,-2,1,1,1,1,-1,1,1,-2,0,0,0,-1,2,2,4,2,2,-2,0,8,-4,0,0,4,-2,0,-2,-4,2,-2,-4,2,-2,4,2,2,-4,-4,0,2,0,-1,2,2,0,1,0,0,0,1,0,-1,0,0,-1,-1,-1,2,1,0,0,0],[2,-1,-1,1,-2,0,-2,-2,-1,-1,0,-1,-1,-1,0,1,-1,2,0,-1,0,0,-1,-2,-4,0,0,0,4,-4,8,2,4,-2,0,4,2,4,-2,2,4,-2,2,-2,-2,-2,2,4,0,-1,-1,1,0,-2,2,-1,1,-2,0,1,0,1,-1,2,1,1,1,-2,-1,-1,0,0],[-1,-1,0,2,0,-1,1,-2,0,-2,1,0,0,1,-1,-1,2,0,1,-1,0,0,-2,0,0,4,-4,0,0,0,2,8,0,2,0,0,4,0,-2,0,0,-2,-4,4,-2,0,2,0,-1,1,-2,2,0,-1,2,2,0,-1,1,0,2,1,-2,-1,2,-1,-1,1,-1,0,-1,0],[2,1,-2,-1,-1,0,-1,0,-2,-1,0,0,-1,-1,-1,3,-1,1,-1,1,0,0,0,-2,-2,-2,4,-2,4,0,4,0,8,2,-2,4,0,4,2,-2,2,0,4,-2,2,-2,2,2,1,0,0,-2,1,0,1,0,2,0,-1,2,-1,1,0,2,0,1,1,0,1,-1,1,-1],[-1,1,-1,0,3,0,2,1,0,-2,0,1,0,1,-3,1,0,-1,0,2,-1,-1,0,1,4,0,2,-4,-2,4,-2,2,2,8,-4,0,-2,0,4,-2,-2,2,-2,2,2,-2,-2,-2,1,1,0,-2,2,2,1,2,1,2,-2,1,-1,1,-1,0,-1,0,-1,3,0,-2,-1,0],[1,-2,1,-1,-2,0,0,-1,1,2,-2,-1,-1,1,3,0,1,2,0,-1,1,-1,-2,0,-4,4,-2,4,2,-2,0,0,-2,-4,8,2,4,-2,-2,-2,0,-4,2,0,-2,4,2,-2,-1,0,0,1,-1,-1,0,-1,0,0,2,0,1,0,2,-1,1,0,1,-1,0,1,-1,-1],[2,0,-3,0,-2,-1,-1,0,-2,-1,0,-2,0,0,0,2,-1,1,-2,1,0,-1,-1,-1,-2,2,2,-2,4,0,4,0,4,0,2,8,0,0,0,0,0,0,4,0,0,0,2,0,1,1,-2,-1,0,-1,1,0,0,-1,1,2,0,0,0,2,-1,1,0,1,0,-1,0,-1],[1,-1,1,0,-1,0,0,-2,1,1,-1,0,-2,1,2,0,1,1,1,-1,1,-1,-2,-1,-4,4,-4,4,2,-2,2,4,0,-2,4,0,8,0,-4,-2,0,-4,0,0,-4,4,2,0,-1,1,-1,2,0,-1,1,0,1,0,1,0,2,1,0,-1,1,-1,1,-1,-1,1,-1,-1],[1,0,0,0,0,1,-1,-1,-1,-1,0,0,-1,-2,-1,2,-1,1,0,0,-1,1,0,-1,-2,-4,2,-2,2,-4,4,0,4,0,-2,0,0,8,0,0,4,0,2,-2,2,-4,2,4,0,-2,1,-1,1,-1,1,-1,1,-1,-1,0,-1,2,-1,2,1,1,1,-1,0,-1,1,1],[0,0,0,-2,1,0,1,2,0,1,-2,0,0,1,-2,1,0,0,-1,1,-1,-2,1,1,4,-2,4,-4,-2,2,-2,-2,2,4,-2,0,-4,0,8,0,0,2,0,0,4,-2,-2,0,2,-1,2,-4,0,1,0,1,1,3,-3,0,-2,1,2,1,0,1,-1,1,1,-3,0,1],[0,0,-1,2,-2,0,-2,1,-2,0,1,-2,1,-2,-1,-2,0,0,-1,0,-1,0,0,0,2,0,-2,-2,0,-2,2,0,-2,-2,-2,0,-2,0,0,8,0,0,-2,0,-2,-2,0,2,1,0,-2,1,-2,-1,-1,1,-3,-1,0,-2,0,-2,-1,2,0,0,-2,0,-2,-1,0,1],[2,-1,1,-1,-1,1,-1,-2,0,1,-1,1,-1,-1,0,0,-2,3,1,-1,0,0,-1,-1,-4,-4,2,0,0,-4,4,0,2,-2,0,0,0,4,0,0,8,0,2,-4,2,-2,2,4,0,-3,2,-1,-1,-1,1,-2,1,0,-1,1,-1,1,0,0,2,3,2,-3,1,-1,0,1],[1,2,-1,0,1,1,-1,1,-1,0,0,-1,1,-1,-1,0,-3,-2,-2,2,-1,1,1,0,4,-4,2,-4,-4,2,-2,-2,0,2,-4,0,-4,0,2,0,0,8,0,0,4,-2,-2,0,3,0,0,-2,-1,2,-2,0,-1,1,-2,-1,-1,-1,0,0,-3,2,-2,2,1,0,0,0],[3,1,-1,-2,-2,1,-1,1,-1,1,-1,0,-1,-1,1,2,-2,2,-2,2,1,0,0,-2,-4,-2,4,0,4,-2,2,-4,4,-2,2,4,0,2,0,-2,2,0,8,-4,0,0,2,2,1,0,1,-2,0,0,0,-1,1,0,0,2,-1,0,1,1,-1,2,2,0,1,0,1,-1],[-3,-1,0,2,1,-2,2,-1,0,-3,1,-1,1,1,-1,0,3,-2,0,-2,0,0,0,2,4,4,-2,-2,0,4,-2,4,-2,2,0,0,0,-2,0,0,-4,0,-4,8,0,0,-2,-2,-1,1,-1,1,1,0,1,1,-1,-2,1,-1,1,0,-1,0,1,-2,-2,2,0,0,-1,1],[0,1,-1,-1,1,-1,1,1,-1,0,0,0,1,0,-1,2,-1,-1,-1,0,-2,0,1,1,2,-4,4,-4,-2,2,-2,-2,2,2,-2,0,-4,2,4,-2,2,4,0,0,8,-2,0,0,1,-1,1,-3,0,0,0,0,0,1,-1,0,-1,1,1,1,0,1,-1,0,2,-1,1,1],[1,0,1,-2,0,0,1,0,1,2,-1,1,-1,1,3,1,1,0,0,0,1,-2,-1,1,-2,4,-2,4,0,2,-2,0,-2,-2,4,0,4,-4,-2,-2,-2,-2,0,0,-2,8,0,-4,0,2,0,0,0,1,0,0,0,1,1,1,1,-1,2,0,0,-1,0,0,0,2,-1,-1],[1,1,-2,1,-2,0,0,1,-1,1,1,0,1,-1,0,0,0,0,-1,1,-1,1,-2,-2,-4,0,0,0,2,-4,2,2,2,-2,2,2,2,2,-2,0,2,-2,2,-2,0,0,8,2,-1,1,-2,1,-1,-2,1,2,0,0,2,1,2,0,-1,0,1,-1,0,0,-1,1,2,-1],[0,1,0,1,0,0,0,0,1,0,1,1,1,-1,-1,-1,-1,0,1,-1,-1,1,1,-2,-2,-4,2,-2,2,-4,4,0,2,-2,-2,0,0,4,0,2,4,0,2,-2,0,-4,2,8,-1,-1,1,0,1,-2,2,0,2,-1,0,1,1,1,-1,0,1,0,2,-2,-1,-1,2,2],[2,1,0,-1,0,2,-2,1,-2,1,-1,-2,-1,-1,0,0,-2,-1,-3,3,0,-1,-1,0,2,-1,0,-1,-2,0,0,-1,1,1,-1,1,-1,0,2,1,0,3,1,-1,1,0,-1,-1,8,0,0,-4,-4,4,-4,0,-2,4,-4,-2,-4,-2,4,2,-4,4,-4,4,2,-2,-4,-2],[-1,2,-2,2,0,-1,1,1,-1,-1,2,0,1,0,0,0,1,-2,-1,1,-1,0,-1,-1,1,2,0,-1,1,2,-1,1,0,1,0,1,1,-2,-1,0,-3,0,0,1,-1,2,1,-1,0,8,-4,2,2,2,0,4,-2,0,4,2,4,-4,-2,0,-4,-4,-2,4,-4,4,0,-4],[0,0,2,-3,2,1,1,0,2,1,-1,3,-1,0,0,1,-1,1,1,0,1,-1,2,0,0,-2,2,1,-1,0,-1,-2,0,0,0,-2,-1,1,2,-2,2,0,1,-1,1,0,-2,1,0,-4,8,-4,2,2,0,-4,4,2,-2,2,-4,2,4,-2,2,2,4,-2,4,-2,0,2],[-1,-1,1,2,-1,0,-1,-2,1,0,1,0,0,0,2,-2,1,0,2,-2,1,2,-1,-1,-1,2,-3,2,1,-1,1,2,-2,-2,1,-1,2,-1,-4,1,-1,-2,-2,1,-3,0,1,0,-4,2,-4,8,0,-2,0,0,-2,-4,4,-2,4,-2,-4,-2,0,-4,0,-2,-4,4,0,-2],[-2,1,-1,1,2,-2,2,0,1,-3,2,2,1,0,-1,2,1,-1,2,-1,-1,0,2,0,0,0,2,-1,2,2,0,0,1,2,-1,0,0,1,0,-2,-1,-1,0,1,0,0,-1,1,-4,2,2,0,8,0,4,0,4,-2,2,4,2,2,-2,0,0,-4,4,0,-2,0,2,2],[0,2,0,-1,2,2,0,1,0,0,0,1,0,-1,0,0,-1,-1,-1,2,1,0,0,0,2,-1,1,0,-2,2,-2,-1,0,2,-1,-1,-1,-1,1,-1,-1,2,0,0,0,1,-2,-2,4,2,2,-2,0,8,-4,0,0,4,-2,0,-2,-4,2,-2,-4,2,-2,4,2,2,-4,-4],[0,-1,-1,1,0,-2,2,-1,1,-2,0,1,0,1,-1,2,1,1,1,-2,-1,-1,0,0,-2,1,1,-1,2,0,2,2,1,1,0,1,1,1,0,-1,1,-2,0,1,0,0,1,2,-4,0,0,0,4,-4,8,2,4,-2,0,4,2,4,-2,2,4,-2,2,-2,-2,-2,2,4],[-1,1,-2,2,0,-1,2,2,0,-1,1,0,2,1,-2,-1,2,-1,-1,1,-1,0,-1,0,1,1,0,-2,0,1,-1,2,0,2,-1,0,0,-1,1,1,-2,0,-1,1,0,0,2,0,0,4,-4,0,0,0,2,8,0,2,0,0,4,0,-2,0,0,-2,-4,4,-2,0,2,0],[1,0,0,-2,1,0,1,0,2,0,-1,2,-1,1,0,2,0,1,1,0,1,-1,1,-1,-2,-1,2,1,1,0,1,0,2,1,0,0,1,1,1,-3,1,-1,1,-1,0,0,0,2,-2,-2,4,-2,4,0,4,0,8,2,-2,4,0,4,2,-2,2,0,4,-2,2,-2,2,2],[1,1,0,-2,2,2,1,2,1,2,-2,1,-1,1,-1,0,-1,0,-1,3,0,-2,-1,0,1,-1,1,0,-3,0,-2,-1,0,2,0,-1,0,-1,3,-1,0,1,0,-2,1,1,0,-1,4,0,2,-4,-2,4,-2,2,2,8,-4,0,-2,0,4,-2,-2,2,-2,2,2,-2,-2,-2],[-1,0,0,1,-1,-1,0,-1,0,0,2,0,1,0,2,-1,1,0,1,-1,0,1,-1,-1,-1,2,-1,1,2,0,0,1,-1,-2,2,1,1,-1,-3,0,-1,-2,0,1,-1,1,2,0,-4,4,-2,4,2,-2,0,0,-2,-4,8,2,4,-2,-2,-2,0,-4,2,0,-2,4,2,-2],[1,1,-2,-1,0,-1,1,0,0,-1,1,2,0,0,0,2,-1,1,0,1,0,-1,0,-1,-2,0,3,0,2,1,1,0,2,1,0,2,0,0,0,-2,1,-1,2,-1,0,1,1,1,-2,2,2,-2,4,0,4,0,4,0,2,8,0,0,0,0,0,0,4,0,0,0,2,0],[-1,1,-1,2,0,-1,1,0,1,0,1,0,2,1,0,-1,1,-1,1,-1,-1,1,-1,-1,-1,1,-1,0,1,0,0,2,-1,-1,1,0,2,-1,-2,0,-1,-1,-1,1,-1,1,2,1,-4,4,-4,4,2,-2,2,4,0,-2,4,0,8,0,-4,-2,0,-4,0,0,-4,4,2,0],[0,-2,1,-1,1,-1,1,-1,1,-1,-1,0,-1,2,-1,2,1,1,1,-1,0,-1,1,1,-1,0,0,0,0,-1,1,1,1,1,0,0,1,2,1,-2,1,-1,0,0,1,-1,0,1,-2,-4,2,-2,2,-4,4,0,4,0,-2,0,0,8,0,0,4,0,2,-2,2,-4,2,4],[2,-1,2,-4,0,1,0,1,1,3,-3,0,-2,1,2,1,0,1,-1,1,1,-3,0,1,0,0,0,2,-1,0,-1,-2,0,-1,2,0,0,-1,2,-1,0,0,1,-1,1,2,-1,-1,4,-2,4,-4,-2,2,-2,-2,2,4,-2,0,-4,0,8,0,0,2,0,0,4,-2,-2,0],[1,0,-2,1,-2,-1,-1,1,-3,-1,0,-2,0,-2,-1,2,0,0,-2,0,-2,-1,0,1,0,0,1,-2,2,0,2,-1,2,0,-1,2,-1,2,1,2,0,0,1,0,1,0,0,0,2,0,-2,-2,0,-2,2,0,-2,-2,-2,0,-2,0,0,8,0,0,-2,0,-2,-2,0,2],[0,-3,2,-1,-1,-1,1,-2,1,0,-1,1,-1,1,0,0,2,3,2,-3,1,-1,0,1,-2,1,-1,1,1,-1,1,2,0,-1,1,-1,1,1,0,0,2,-3,-1,1,0,0,1,1,-4,-4,2,0,0,-4,4,0,2,-2,0,0,0,4,0,0,8,0,2,-4,2,-2,2,4],[3,0,0,-2,-1,2,-2,0,-1,1,-2,-1,-1,-1,0,0,-3,2,-2,2,1,0,0,0,-1,-2,1,0,-1,-1,1,-1,1,0,0,1,-1,1,1,0,3,2,2,-2,1,-1,-1,0,4,-4,2,-4,-4,2,-2,-2,0,2,-4,0,-4,0,2,0,0,8,0,0,4,-2,-2,0],[1,0,1,-2,0,0,0,-1,1,0,0,2,-1,0,1,1,-1,2,2,0,1,0,1,-1,-3,-1,1,2,2,-1,1,-1,1,-1,1,0,1,1,-1,-2,2,-2,2,-2,-1,0,0,2,-4,-2,4,0,4,-2,2,-4,4,-2,2,4,0,2,0,-2,2,0,8,-4,0,0,2,2],[-1,1,-1,1,1,0,1,1,-1,-2,1,-1,1,0,-1,0,1,-2,-2,2,0,0,-1,1,3,1,0,-2,-1,2,-2,1,0,3,-1,1,-1,-1,1,0,-3,2,0,2,0,0,0,-2,4,4,-2,-2,0,4,-2,4,-2,2,0,0,0,-2,0,0,-4,0,-4,8,0,0,-2,-2],[1,-1,1,-3,0,0,0,0,0,1,-1,0,-1,1,1,1,0,1,-1,0,2,-1,1,1,0,-1,1,1,-1,1,-1,-1,1,0,0,0,-1,0,1,-2,1,1,1,0,2,0,-1,-1,2,-4,4,-4,-2,2,-2,-2,2,2,-2,0,-4,2,4,-2,2,4,0,0,8,-2,0,0],[0,2,0,0,0,1,0,0,0,1,1,1,1,-1,2,0,0,-1,0,0,0,2,-1,-1,-1,0,-1,2,0,0,-1,0,-1,-2,1,-1,1,-1,-3,-1,-1,0,0,0,-1,2,1,-1,-2,4,-2,4,0,2,-2,0,-2,-2,4,0,4,-4,-2,-2,-2,-2,0,0,-2,8,0,-4],[-1,1,-2,1,-1,-2,1,2,0,0,2,1,2,0,-1,0,1,-1,0,0,-1,1,2,-1,-1,-1,2,-1,2,0,0,-1,1,-1,-1,0,-1,1,0,0,0,0,1,-1,1,-1,2,2,-4,0,0,0,2,-4,2,2,2,-2,2,2,2,2,-2,0,2,-2,2,-2,0,0,8,2],[-1,-1,1,0,1,-2,2,0,2,-1,0,1,1,1,-1,0,1,0,2,-2,-1,-1,2,2,0,-1,0,-1,0,0,0,0,-1,0,-1,-1,-1,1,1,1,1,0,-1,1,1,-1,-1,2,-2,-4,2,-2,2,-4,4,0,2,-2,-2,0,0,4,0,2,4,0,2,-2,0,-4,2,8]];
+const RESULTS = [[71,1.1446],[70,1.4357],[69,1.5427],[68,1.5127],[67,1.1799],[66,0.9080]];
+const NS = "http://www.w3.org/2000/svg";
+
+function drawGram(){
+  const host = document.getElementById("gram");
+  if (!GRAM) return;
+  const n = GRAM.length, cell = 8, gap = 1, size = n * cell;
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", "Heatmap of the 72 by 72 Gram matrix of Gamma72");
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+    const v = GRAM[i][j], r = document.createElementNS(NS, "rect");
+    r.setAttribute("x", j * cell); r.setAttribute("y", i * cell);
+    r.setAttribute("width", cell - gap); r.setAttribute("height", cell - gap);
+    let fill = "var(--zero)", op = 1;
+    if (v < 0) { fill = "var(--neg)"; op = 0.3 + 0.7 * Math.min(1, -v / 4); }
+    else if (v > 0) { fill = "var(--pos)"; op = i === j ? 1 : 0.3 + 0.7 * Math.min(1, v / 4); }
+    r.setAttribute("fill", fill); r.setAttribute("fill-opacity", op);
+    svg.appendChild(r);
+  }
+  const hl = document.createElementNS(NS, "rect");
+  hl.setAttribute("width", cell - gap); hl.setAttribute("height", cell - gap);
+  hl.setAttribute("fill", "none"); hl.setAttribute("stroke", "var(--ink)"); hl.setAttribute("stroke-width", 1.5);
+  hl.setAttribute("visibility", "hidden");
+  svg.appendChild(hl);
+  host.appendChild(svg);
+  const out = document.getElementById("readout");
+  const pick = (ev) => {
+    const box = svg.getBoundingClientRect();
+    const p = ev.touches ? ev.touches[0] : ev;
+    const j = Math.floor((p.clientX - box.left) / box.width * n);
+    const i = Math.floor((p.clientY - box.top) / box.height * n);
+    if (i < 0 || j < 0 || i >= n || j >= n) return;
+    hl.setAttribute("x", j * cell); hl.setAttribute("y", i * cell); hl.setAttribute("visibility", "visible");
+    const v = GRAM[i][j];
+    const fv = v < 0 ? "\u2212" + (-v) : String(v);
+    out.textContent = i === j
+      ? `Basis vector ${i + 1} has norm ${fv}.`
+      : `Basis vectors ${i + 1} and ${j + 1} have inner product ${fv}.`;
+  };
+  svg.addEventListener("mousemove", pick);
+  svg.addEventListener("touchstart", pick, {passive: true});
+  svg.addEventListener("mouseleave", () => hl.setAttribute("visibility", "hidden"));
+}
+
+function drawChart(){
+  const host = document.getElementById("chart");
+  const W = Math.max(320, Math.min(640, host.clientWidth || 640)), rowH = 34, top = 8, left = 40, right = 60, H = top + RESULTS.length * rowH + 30;
+  const lo = 0.8, hi = 1.6, x = (r) => left + (r - lo) / (hi - lo) * (W - left - right);
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("aria-hidden", "true");
+  const el = (tag, attrs, text) => { const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]); if (text) e.textContent = text; svg.appendChild(e); return e; };
+  RESULTS.forEach(([dim, r], k) => {
+    const y = top + k * rowH, h = 16, cy = y + rowH / 2;
+    el("text", {x: left - 14, y: cy + 4, "text-anchor": "end", class: "dimlab"}, `${dim}`);
+    const x0 = x(1), x1 = x(r), up = r >= 1;
+    const hit = el("rect", {x: left, y: y, width: W - left - right, height: rowH, class: "hit"});
+    const t = document.createElementNS(NS, "title");
+    t.textContent = `Dimension ${dim}: ${r.toFixed(2)} times the best possible slice of Γ72`;
+    hit.appendChild(t);
+    el("rect", {x: Math.min(x0, x1), y: cy - h / 2, width: Math.max(2, Math.abs(x1 - x0)), height: h, rx: 3,
+      class: up ? "bar-up" : "bar-down"});
+    el("text", {x: up ? x1 + 8 : x0 + 8, y: cy + 4, "text-anchor": "start"}, `×${r.toFixed(2)}`);
+  });
+  const yb = top + RESULTS.length * rowH;
+  el("line", {x1: x(1), x2: x(1), y1: top - 4, y2: yb + 2, class: "ref"});
+  el("text", {x: x(1), y: yb + 20, "text-anchor": "middle"}, "best possible slice of Γ72");
+  host.appendChild(svg);
+}
+drawGram(); drawChart();
+let lastW = document.getElementById("chart").clientWidth;
+addEventListener("resize", () => { const h = document.getElementById("chart"); if (Math.abs(h.clientWidth - lastW) > 20) { lastW = h.clientWidth; h.innerHTML = ""; drawChart(); } });
+</script>
+</body>
+</html>
