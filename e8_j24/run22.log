@@ -1,0 +1,10 @@
+start: 1771 short pairs, min 4
+it 0: 1729 short pairs (min 6)  [0s]
+it 13: 1723 short pairs (min 6)  [3s]
+it 22: 1721 short pairs (min 6)  [5s]
+it 43: 1720 short pairs (min 6)  [10s]
+it 44: 1717 short pairs (min 6)  [10s]
+it 69: 1715 short pairs (min 6)  [15s]
+it 158: 1711 short pairs (min 6)  [34s]
+it 198: 1708 short pairs (min 6)  [42s]
+it 1727: 1705 short pairs (min 6)  [364s]
