@@ -49,6 +49,13 @@ An extremal even unimodular lattice in dimension 96 would have minimum norm 10. 
 
 An automorphism filter (standard prime-order lemma plus Hermite and Blichfeldt bounds) shows an extremal 96-dimensional lattice has no automorphism of prime order 31 to 89, order 97 only fixed-point-free, and order 23 only with a 74-dimensional fixed lattice.
 
+
+### October 13, 2026: additional exact Leech96 work
+
+See [the research update](LEECH96_RESEARCH_UPDATE_2026-10-13.md). For the deformed Z/16 candidate, the **entire even-first-coordinate case is now excluded at norms 2, 4, 6, and 8** by combining the existing mod-4 check with a new binary-code and modular-sign certificate. The odd-first-coordinate case remains open; **extremality is not proved**. Separately, the conditional theta-series orbit counts exclude order-97 automorphisms of an extremal rank-96 lattice and fixed-point-free orders 5 and 13 for a putative extremal 7-modular J24. The latter rules out the rank-one cyclotomic order-35 partner family without a GRH assumption.
+
+Run `python3 z16_candidate_checks/even_layer_certificate.py z16_candidate_checks/candidate_3cycle.json /tmp/even_layer.json` (requires a C++17 compiler), and `python3 leech96_symmetry_screen/theta_orbit_cert.py /tmp/orbit.json`.
+
 ## Repository
 
 | Folder | Contents |

@@ -1,0 +1,14 @@
+{
+  "rank96": {
+    "conditional_norm10_shell": 565866362880,
+    "mod97": 12,
+    "implication": "order 97 excluded"
+  },
+  "J24_even_7modular": {
+    "conditional_norm10_shell": 84672,
+    "mod5": 2,
+    "mod13": 3,
+    "implication": "fixed-point-free order 5 and 13 excluded"
+  },
+  "note": "conditional theta series; exact integer coefficients and orbit divisibility"
+}

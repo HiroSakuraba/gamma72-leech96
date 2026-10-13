@@ -1,0 +1,35 @@
+name: Leech96 exact verification
+on:
+  push:
+    paths:
+      - "z16_candidate_checks/**"
+      - "leech96_symmetry_screen/theta_orbit_cert.py"
+      - ".github/workflows/leech96-exact.yml"
+  pull_request:
+    paths:
+      - "z16_candidate_checks/**"
+      - "leech96_symmetry_screen/theta_orbit_cert.py"
+      - ".github/workflows/leech96-exact.yml"
+
+jobs:
+  certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exact even-u enumeration (Python + C++17)
+        run: |
+          python3 z16_candidate_checks/even_layer_certificate.py z16_candidate_checks/candidate_3cycle.json /tmp/even_layer.json
+          python3 -c "import json; r=json.load(open('/tmp/even_layer.json')); assert r['completed']; assert sum(x['short_vectors'] for x in r['finite_checks']) == 0"
+      - name: Conditional extremal theta orbit obstructions
+        run: |
+          python3 leech96_symmetry_screen/theta_orbit_cert.py /tmp/theta_orbit.json
+          python3 -c "import json; r=json.load(open('/tmp/theta_orbit.json')); assert r['rank96']['mod97']==12; assert r['J24_7modular']['mod5']==2"
+      - name: Existing u divisible by 4 certificate
+        run: |
+          python3 -m pip install numpy
+          python3 z16_candidate_checks/layer4.py z16_candidate_checks/candidate_3cycle.json /tmp/layer4.json
+          python3 -c "import json; r=json.load(open('/tmp/layer4.json')); assert r['certified_no_norm_le_8_in_layers']"
