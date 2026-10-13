@@ -1,0 +1,31 @@
+name: Leech96 odd support-four exact exclusion
+on:
+  push:
+    paths:
+      - "z16_candidate_checks/odd_support4.*"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-odd-support.yml"
+  pull_request:
+    paths:
+      - "z16_candidate_checks/odd_support4.*"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-odd-support.yml"
+jobs:
+  exact-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exact four-coordinate odd-u exclusion
+        run: |
+          python3 z16_candidate_checks/odd_support4.py z16_candidate_checks/candidate_3cycle.json /tmp/odd4.json 8
+          python3 - <<'PY'
+          import json
+          r=json.load(open('/tmp/odd4.json'))
+          assert r['exhaustive_for_scope'] and r['short_vectors_found']==0
+          assert r['candidate_count_after_safe_prefix_pruning']==5753341440
+          print('Certified precise support-four scope; not a full lattice minimum proof')
+          PY
