@@ -1,0 +1,46 @@
+name: Leech96 modular support exclusion
+on:
+  push:
+    paths:
+      - "z16_candidate_checks/support_mod8_*"
+      - "z16_candidate_checks/support6_allodd.cpp"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-mod8-support.yml"
+  pull_request:
+    paths:
+      - "z16_candidate_checks/support_mod8_*"
+      - "z16_candidate_checks/support6_allodd.cpp"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-mod8-support.yml"
+jobs:
+  exact-modular-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        scope: [five, six]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify independently via scalar arithmetic
+        if: matrix.scope == 'five'
+        run: |
+          python3 z16_candidate_checks/support_mod8_reference.py z16_candidate_checks/candidate_3cycle.json
+      - name: Run full exact modular support scan
+        env:
+          OMP_NUM_THREADS: 4
+        run: |
+          python3 z16_candidate_checks/support_mod8_verify.py z16_candidate_checks/candidate_3cycle.json ${{ matrix.scope }} /tmp/mod8.json
+      - name: Check scope and no short vector
+        run: |
+          python3 - <<'PY'
+          import json
+          r=json.load(open('/tmp/mod8.json'))
+          assert r['complete_within_stated_scope']
+          assert r['short_vectors_found']==0
+          assert r['full_96_dimensional_minimum_certified'] is False
+          print(r['scope'])
+          PY
