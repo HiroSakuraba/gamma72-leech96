@@ -1,0 +1,17 @@
+{
+  "candidate_A_sha256": "929e71c3a3f54f3361d9a8c318786b1da726e141250a93969e9b2cec8cd3c656",
+  "scope": "exactly seven nonzero centered first-half coordinates, all odd",
+  "run_id": 38436036696,
+  "run_url": "https://github.com/HiroSakuraba/gamma72-leech96/actions/runs/38436036696",
+  "partitions": 42,
+  "workflow_jobs_passed": 44,
+  "supports": 73629072,
+  "mod8_residue_patterns": 1206338715648,
+  "passed_mod8_bound": 262436,
+  "exact_centered_mod16_lifts_checked": 2863962,
+  "short_vectors_norm_sq_le_8": 0,
+  "complete_for_scope": true,
+  "global_minimum_certified": false,
+  "verification": "Aggregate of 42 completed GitHub Actions job-log SUMMARY lines, independently checked support total 73629072 and 16384 residue assignments per support.",
+  "notes": "Plus-minus-one exhaustive Gray-code crosscheck and portable scalar references separately passed."
+}
