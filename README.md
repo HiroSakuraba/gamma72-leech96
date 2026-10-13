@@ -44,11 +44,23 @@ An extremal even unimodular lattice in dimension 96 would have minimum norm 10. 
 | Leech ⊗ a rank-4 partner over Q(√−23) | ❌ Closed by proof: class number 3 lets an ideal twist of Leech with roots produce vectors of norm ≤ 8; 24 explicit certificates |
 | Same over Q(√−d), d ≤ 8 | ❌ Closed by proof: the Hermite bound caps the partner's minimum |
 | Symmetric Paley codes, A = mC + cI over Z/N | ❌ Closed by proof: an order-47 symmetry forces a short vector; all 53 lattices killed explicitly |
-| Deformed Z/16 Paley code | ⭕ Open: even unimodular, BKZ to block 45 finds min 10, one full layer certified clear |
+| Deformed Z/16 Paley code | ⭕ Open: even unimodular; BKZ finds norm 10; **exact computer-assisted exclusion of all norm ≤8 vectors with centered first-half support ≤6**. Larger odd-coordinate supports remain open |
 | E₈ ⊗ J₂₄ over Z[(1+√−7)/2] | 🔷 Lead, narrowed: class number 1, split norm exactly 10, theta series admissible. No extremal 7-modular J yet: sublattices of Leech, symmetric and neighbour searches stall near 1,700 short pairs, and an exhaustive search of ideal lattices in Q(ζ₃₅), Q(ζ₅₆), Q(ζ₈₄) finds minimum 8 at best |
 
-An automorphism filter (standard prime-order lemma plus Hermite and Blichfeldt bounds) shows an extremal 96-dimensional lattice has no automorphism of prime order 31 to 89, order 97 only fixed-point-free, and order 23 only with a 74-dimensional fixed lattice.
+An automorphism filter (standard prime-order lemma plus Hermite and Blichfeldt bounds) shows an extremal 96-dimensional lattice has no automorphism of prime order 31 to 89, order 97 also excluded by the conditional extremal theta-series shell count, and order 23 only with a 74-dimensional fixed lattice.
 
+
+### October 13: all six-coordinate cases now checked exactly
+
+The deformed Z/16 candidate has an exact computational exclusion of
+**every norm-8-or-shorter vector whose centered first-half integer
+coordinate vector has at most six nonzero entries**. The final
+support-six certificate enumerates all 64 odd/even parity masks,
+covering **3,216,903,241,728** residue patterns modulo 8.
+[All 65 verification jobs passed](https://github.com/HiroSakuraba/gamma72-leech96/actions/runs/38424589542).
+See the [proof and reproducibility report](LEECH96_SUPPORT6_PARITY_CERTIFICATE_2026-10-13.md).
+Vectors with seven or more nonzero centered first-half coordinates
+remain unresolved. **Minimum norm 10 is not proved.**
 
 ### October 13, 2026: additional exact Leech96 work
 

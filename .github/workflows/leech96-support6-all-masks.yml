@@ -1,0 +1,59 @@
+name: Leech96 exact support-six parity masks
+on:
+  push:
+    paths:
+      - "z16_candidate_checks/support6_mask_*"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-support6-all-masks.yml"
+  pull_request:
+    paths:
+      - "z16_candidate_checks/support6_mask_*"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-support6-all-masks.yml"
+
+jobs:
+  scalar-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Independent nontrivial exact scalar reference
+        run: |
+          python3 z16_candidate_checks/support6_mask_reference.py z16_candidate_checks/candidate_3cycle.json
+
+  exact-mask:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        oddmask: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exhaustively verify fixed six-coordinate parity mask
+        env:
+          OMP_NUM_THREADS: "2"
+        run: |
+          python3 z16_candidate_checks/support6_mask_verify.py z16_candidate_checks/candidate_3cycle.json ${{ matrix.oddmask }} /tmp/support6-mask.json
+      - name: Assert exact search completed
+        run: |
+          python3 - <<'PY'
+          import json
+          r=json.load(open('/tmp/support6-mask.json'))
+          assert r['complete_for_mask']
+          assert r['short_vectors_norm_sq_at_most_8']==0
+          assert not r['global_minimum_certified']
+          print(r['oddmask'], r['mod8_survivors'], r['exact_mod16_lifts_checked'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leech96-support6-mask-${{ matrix.oddmask }}
+          path: /tmp/support6-mask.json
+          retention-days: 14
