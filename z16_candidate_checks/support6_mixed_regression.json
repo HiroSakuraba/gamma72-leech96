@@ -1,0 +1,109 @@
+{
+  "description": "Previously completed full exact scans of the two six-coordinate odd-parity extremal cases, reproduced by the generalized scan",
+  "candidate": "z16_candidate_checks/candidate_3cycle.json",
+  "scope": "exactly 1 or exactly 5 odd entries among 6 nonzero centered first-half coordinates",
+  "masks": [
+    {
+      "oddmask": 62,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 10290,
+      "exact_mod16_lifts": 79364,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 61,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 9609,
+      "exact_mod16_lifts": 76698,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 59,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 9043,
+      "exact_mod16_lifts": 71622,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 55,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 9429,
+      "exact_mod16_lifts": 74884,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 47,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 8898,
+      "exact_mod16_lifts": 70919,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 31,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 9153,
+      "exact_mod16_lifts": 72346,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 1,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 503,
+      "exact_mod16_lifts": 3018,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 2,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 557,
+      "exact_mod16_lifts": 3682,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 4,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 650,
+      "exact_mod16_lifts": 4339,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 8,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 667,
+      "exact_mod16_lifts": 4438,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 16,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 617,
+      "exact_mod16_lifts": 4014,
+      "short_vectors": 0
+    },
+    {
+      "oddmask": 32,
+      "supports": 12271512,
+      "residue_classes": 50264113152,
+      "mod8_survivors": 590,
+      "exact_mod16_lifts": 3924,
+      "short_vectors": 0
+    }
+  ],
+  "totals": {
+    "residue_classes": 603169357824,
+    "mod8_survivors": 60006,
+    "exact_mod16_lifts": 469248
+  },
+  "global_minimum_proved": false
+}
