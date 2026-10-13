@@ -1,0 +1,78 @@
+name: Leech96 exact support-seven odd checks
+on:
+  push:
+    paths:
+      - "z16_candidate_checks/support7_*"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-support7-odd.yml"
+  pull_request:
+    paths:
+      - "z16_candidate_checks/support7_*"
+      - "z16_candidate_checks/candidate_3cycle.json"
+      - ".github/workflows/leech96-support7-odd.yml"
+
+jobs:
+  plus-minus-one:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Complete support-seven ±1 scan
+        env:
+          OMP_NUM_THREADS: "2"
+        run: |
+          python3 z16_candidate_checks/support7_pm1_verify.py z16_candidate_checks/candidate_3cycle.json /tmp/pm1.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leech96-support7-pm1
+          path: /tmp/pm1.json
+          retention-days: 14
+
+  scalar-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Independent exact scalar modular checks
+        run: |
+          python3 z16_candidate_checks/support7_scalar_reference.py z16_candidate_checks/candidate_3cycle.json
+
+  all-odd:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        first: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exact full odd-coordinate scan for first-index partition
+        env:
+          OMP_NUM_THREADS: "2"
+        run: |
+          python3 z16_candidate_checks/support7_allodd_verify.py z16_candidate_checks/candidate_3cycle.json ${{ matrix.first }} /tmp/odd7.json
+      - name: Check output and proof scope
+        run: |
+          python3 - <<'PY'
+          import json
+          r=json.load(open('/tmp/odd7.json'))
+          assert r['complete_for_first_index']
+          assert r['short_vectors_norm_sq_le_8']==0
+          assert not r['full_minimum_norm_proved']
+          print(r['first_index'],r['mod8_survivors'],r['centered_mod16_lifts_checked'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leech96-support7-first-${{ matrix.first }}
+          path: /tmp/odd7.json
+          retention-days: 14
