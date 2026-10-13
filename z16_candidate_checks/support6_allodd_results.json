@@ -1,0 +1,12 @@
+{
+  "candidate_A_sha256": "929e71c3a3f54f3361d9a8c318786b1da726e141250a93969e9b2cec8cd3c656",
+  "scope": "exactly six nonzero centered first-half coordinates (all six odd)",
+  "norm_squared_threshold": 8,
+  "supports": 12271512,
+  "mod8_classes": 50264113152,
+  "pass_mod8": 14898,
+  "lifts_checked": 252059,
+  "short_vectors_found": 0,
+  "scope_exhaustive": true,
+  "global_minimum_proved": false
+}
