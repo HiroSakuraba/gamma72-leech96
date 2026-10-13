@@ -1,0 +1,28 @@
+{
+  "candidate_A_sha256": "929e71c3a3f54f3361d9a8c318786b1da726e141250a93969e9b2cec8cd3c656",
+  "scope": "exactly five nonzero centered first-half coordinates (any parity)",
+  "norm_squared_threshold": 8,
+  "supports": 1712304,
+  "mod8_classes": 56108777472,
+  "pass_mod8": 15278,
+  "lifts_checked": 127019,
+  "passes_by_odd": [
+    0,
+    5714,
+    635,
+    3895,
+    1498,
+    3536
+  ],
+  "lifts_by_odd": [
+    0,
+    47344,
+    8845,
+    30077,
+    18427,
+    22326
+  ],
+  "short_vectors_found": 0,
+  "scope_exhaustive": true,
+  "global_minimum_proved": false
+}

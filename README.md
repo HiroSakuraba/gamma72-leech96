@@ -56,6 +56,10 @@ See [the research update](LEECH96_RESEARCH_UPDATE_2026-10-13.md). For the deform
 
 Run `python3 z16_candidate_checks/even_layer_certificate.py z16_candidate_checks/candidate_3cycle.json /tmp/even_layer.json` (requires a C++17 compiler), and `python3 leech96_symmetry_screen/theta_orbit_cert.py /tmp/orbit.json`.
 
+### October 13: mod-8 exact support exclusions
+
+The deformed Z/16 candidate now has an exact **complete exclusion of squared norms ≤8 for every vector with exactly five nonzero centered first-half coordinates**, and a separate complete exclusion for **six nonzero first-half coordinates when all six are odd**. The computer-assisted proof uses a necessary squared-distance bound modulo 8 before exact modulo-16 lift checks. It found no short vectors in 56.1 billion and 50.3 billion residue classes, respectively. **The lattice's global minimum remains unproved.** See [the proof and verification report](LEECH96_MOD8_SUPPORT_CERTIFICATE_2026-10-13.md) and the `support_mod8_verify.py` verifier.
+
 ## Repository
 
 | Folder | Contents |
