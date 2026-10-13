@@ -15,6 +15,26 @@ nonzero solution. The existing exact certificate rules out **all-even \(u\)**.
 Other completed finite searches rule out \(u\) of support at most five,
 after centering modulo 16.
 
+## Main result: every support-six parity mask is excluded
+
+**Complete exact computation:** all 64 parity masks passed in
+[GitHub Actions run #38424589542](https://github.com/HiroSakuraba/gamma72-leech96/actions/runs/38424589542),
+together with a separate scalar reference-check job (**65/65 success**).
+Thus **no lattice vector of squared norm at most 8 has exactly six nonzero
+centered first-half coordinates**. This is an exact finite
+computer-assisted exclusion, not a global shortest-vector proof.
+
+For each of the 64 masks the checker exhausted all
+`12,271,512 × 4096 = 50,264,113,152` modulo-8 residue patterns.
+Across the full experiment, it covered **3,216,903,241,728** patterns,
+tested every lifted candidate that survived the necessary lower bounds,
+and found **zero** short vectors. Each mask produces a separate
+machine-readable artifact in the Actions run.
+
+Combined with the existing even-coordinate and supports-one-through-five
+certificates, any as-yet-undetected vector of squared norm at most 8 has
+**at least seven nonzero centered first-half coordinates**.
+
 ## New completed subfamilies
 
 The October 13 finite calculations have now completed all configurations
@@ -32,9 +52,8 @@ modulo-16 lifts exactly, and found **zero** vectors of squared norm at
 most 8. See `z16_candidate_checks/support6_mixed_regression.json`
 for the 12 separate counters.
 
-The earlier **six-odd** family also passed. The remaining
-two-, three-, and four-odd families were not included in those first
-12 completed scans.
+The earlier **six-odd** family also passed. The two-, three-, and four-odd families were subsequently **completed**
+in the full 64-mask run cited above.
 
 ## Generalized exact verifier
 
@@ -110,10 +129,9 @@ Set the oddmask from 0 to 63 to cover every support-six parity type.
 The GitHub Actions workflow `leech96-support6-all-masks.yml`
 runs all 64 masks separately and uploads exact JSON reports.
 
-**A complete exclusion of first-half support six may be claimed
-only when every one of those 64 mask jobs succeeds.** Any failure
-containing an explicit norm-8 witness must be treated as a genuine
-counterexample to extremality (after checking membership).
+**All 64 mask jobs succeeded** in the run cited above. A future
+revision that reports a norm-8 witness must instead check membership
+exactly and withdraw this candidate's extremality prospects.
 
 ## What remains even after all 64 masks pass
 
