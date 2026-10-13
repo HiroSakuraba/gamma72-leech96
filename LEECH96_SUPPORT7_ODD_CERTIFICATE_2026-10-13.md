@@ -104,9 +104,38 @@ Python scalar implementation.
 The `leech96-support7-odd.yml` GitHub Actions workflow runs all
 42 disjoint partitions and writes a separate JSON certificate per
 partition, along with the independent scalar and full ±1 checks.
-**Do not claim exclusion of every all-odd support-seven vector until
-all 42 partitions pass**. Any short-vector witness is to be
+**All 42 partitions subsequently passed; see the complete verification results below.** Any short-vector witness is to be
 preserved and independently checked, not discarded.
+
+## Completed all-odd verification
+
+**All 44 workflow jobs passed**, including the 42 exhaustive first-index
+partitions, the full independent Gray-code ±1 scan, and the scalar
+reference cases:
+[GitHub Actions run #38436036696](https://github.com/HiroSakuraba/gamma72-leech96/actions/runs/38436036696).
+
+The aggregate of the 42 exact job logs is:
+
+| Quantity | Verified value |
+|---|---:|
+| Supports, all 42 disjoint first indices | 73,629,072 |
+| Modulo-8 residue patterns tested | 1,206,338,715,648 |
+| Patterns satisfying the necessary modulo-8 norm bound | **262,436** |
+| Centered modulo-16 lifts evaluated exactly | **2,863,962** |
+| Vectors of squared norm at most 8 | **0** |
+
+The count of supports equals \(\binom{48}{7}\); the residue-pattern
+count equals \(\binom{48}{7}4^7\). The complete computed exclusion
+therefore covers **all support-seven first-half vectors for which
+all seven nonzero entries are odd**. The candidate's global minimum
+remains unproved because mixed-parity support-seven vectors and
+larger odd-coordinate supports have not been exhausted.
+
+The aggregated numbers and provenance are preserved in
+`z16_candidate_checks/support7_allodd_results.json`. The standalone
+`odd7_aggregate.py` checks disjoint coverage, matrix fingerprints,
+and totals when supplied the 42 per-partition JSON artifacts from
+the run.
 
 ## Remaining mathematical work
 
