@@ -1,0 +1,37 @@
+{
+  "status": "exact finite computation, conditional on separate existing layer4.py certificate",
+  "candidate_A_sha256": "929e71c3a3f54f3361d9a8c318786b1da726e141250a93969e9b2cec8cd3c656",
+  "codewords_enumerated": 50331648,
+  "families": [
+    {
+      "name": "image M",
+      "weight12": 12972,
+      "weight16": 356730,
+      "weight14": 0,
+      "k12_modular_survivors": 0,
+      "k16_modular_survivors": 7,
+      "k16_short_vectors": 0
+    },
+    {
+      "name": "image M transpose",
+      "weight12": 17296,
+      "weight16": 535095,
+      "weight14": 0,
+      "k12_modular_survivors": 0,
+      "k16_modular_survivors": 16,
+      "k16_short_vectors": 0
+    },
+    {
+      "name": "ones plus image M",
+      "weight12": 4324,
+      "weight16": 178365,
+      "weight14": 0,
+      "k12_modular_survivors": 0,
+      "k16_modular_survivors": 3,
+      "k16_short_vectors": 0
+    }
+  ],
+  "weight12_cases_total": 3355424,
+  "proven_scope": "no nonzero norm <=8 vectors with all first-half integer coordinates even",
+  "unresolved": "odd first-half coordinates"
+}
