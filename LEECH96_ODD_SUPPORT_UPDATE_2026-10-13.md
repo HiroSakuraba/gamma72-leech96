@@ -1,10 +1,10 @@
 # Leech96 odd-coordinate exact search — October 13, 2026
 
 The published deformed Z/16 candidate has
-[
+\[
 L_A=\{(u,v)/4 : u,v\in\mathbb Z^{48},\ v\equiv uA\pmod{16}\},
 \qquad \|(u,v)/4\|^2=(\|u\|^2+\|v\|^2)/16.
-]
+\]
 
 The earlier [even-u certificate](LEECH96_RESEARCH_UPDATE_2026-10-13.md)
 excludes norm 2, 4, 6, or 8 whenever every coordinate of \(u\) is even.
