@@ -1,0 +1,11 @@
+{
+  "candidate_matrix_sha256": "929e71c3a3f54f3361d9a8c318786b1da726e141250a93969e9b2cec8cd3c656",
+  "scope": "exactly four nonzero first-half coordinates, at least one odd",
+  "coefficient_bound": 8,
+  "complete_for_scope": true,
+  "candidates_after_safe_prefix_pruning": 5753341440,
+  "odd_first_half_candidates": 5435786880,
+  "parity_lower_bound_survivors": 3226914720,
+  "short_vectors_norm_at_most_8": 0,
+  "global_minimum_proved": false
+}
