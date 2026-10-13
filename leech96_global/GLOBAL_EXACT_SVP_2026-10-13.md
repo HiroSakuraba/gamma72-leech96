@@ -74,7 +74,7 @@ python exact_svp.py search z16_route/candidate_3cycle_LLL_gram.json \
   --resume partial.json --max-nodes 10000 --state partial.json
 ```
 
-Use `global_aggregate.py` **only after** each of the 21 partition reports has status `COMPLETE_NO_SHORT_VECTOR`. It checks SHA, radius, exact partition coverage and completeness, but is only a *coverage audit*: it cannot establish that external JSON log claims are truthful without rerunning their enumerations. Partial states and timeouts are *not* certificates.
+Use `global_aggregate.py` **only after** each of the 21 partition reports has status `COMPLETE_NO_SHORT_VECTOR`. It independently regenerates all mathematical suffix partitions from the supplied Gram matrix, then checks SHA, radius, exact partition coverage and completeness, but is only a *coverage audit*: it cannot establish that external JSON log claims are truthful without rerunning their enumerations. Partial states and timeouts are *not* certificates.
 
 `global_witness.py` independently maps any found reduced-lattice integer coefficient vector back into the original 96 integer coordinates `(u,v)` and checks the exact modular code constraint and squared norm.
 
