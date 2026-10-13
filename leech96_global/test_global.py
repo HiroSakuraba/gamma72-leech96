@@ -58,23 +58,35 @@ def tests():
         plist={'status':'COMPLETE_PREFIX_LIST','gram_sha256':digest(E),
                'rank':8,'bound':1,'depth':1,'suffixes':parts}
         (td/'prefixes.json').write_text(json.dumps(plist))
+        (td/'E8Gram.json').write_text(json.dumps(E))
         states=td/'states';states.mkdir()
         for i,suffix in enumerate(parts):
             check=Enumerator(E,bound=1,suffix=suffix)
             assert check.run(100000)['complete']
             assert check.witness is None
             check.save(states/f'{i}.json')
-        args=sys.argv;sys.argv=['global_aggregate.py',str(td/'prefixes.json'),
+        args=sys.argv;sys.argv=['global_aggregate.py',str(td/'E8Gram.json'),str(td/'prefixes.json'),
                                 str(states),str(td/'coverage.json')]
         try:aggregate_main()
         finally:sys.argv=args
         coverage=json.loads((td/'coverage.json').read_text())
         assert coverage['smallest_nonzero_norm_gt_bound_certified']
+        # Reject a forged list omitting one mathematically possible suffix.
+        forged=dict(plist,suffixes=plist['suffixes'][:-1])
+        (td/'forged-prefixes.json').write_text(json.dumps(forged))
+        args=sys.argv
+        sys.argv=['global_aggregate.py',str(td/'E8Gram.json'),
+                  str(td/'forged-prefixes.json'),str(states),str(td/'forged-out.json')]
+        try:
+            try:aggregate_main()
+            except ValueError:pass
+            else:raise AssertionError('forged prefix coverage should be rejected')
+        finally:sys.argv=args
         # Restore negative coverage to the intentionally incomplete case.
         not_complete=td/'states'/'0.json'
         d=json.loads(not_complete.read_text());d['finished']=False
         d['certificate_status']='INCOMPLETE';not_complete.write_text(json.dumps(d))
-        args=sys.argv;sys.argv=['global_aggregate.py',str(td/'prefixes.json'),
+        args=sys.argv;sys.argv=['global_aggregate.py',str(td/'E8Gram.json'),str(td/'prefixes.json'),
                                 str(states),str(td/'coverage2.json')]
         try:
             try:aggregate_main()
