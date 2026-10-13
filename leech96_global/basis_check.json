@@ -1,0 +1,10 @@
+{
+  "candidate_A_sha256": "929e71c3a3f54f3361d9a8c318786b1da726e141250a93969e9b2cec8cd3c656",
+  "reduced_gram_sha256": "05aa5b6137cec45bf7fb1524d9fed0847878639df00ebfd63dc261df15452526",
+  "basis_transform_det": 1,
+  "even": true,
+  "reduced_gram_determinant": 1,
+  "reduced_GS_last_norm_squared": "1/50",
+  "basis_is_exactly_full_candidate_lattice": true,
+  "shortest_vector_certified": false
+}
