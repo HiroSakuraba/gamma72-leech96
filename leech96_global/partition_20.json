@@ -1,0 +1,18 @@
+{
+  "format": "exact-svp-state",
+  "version": 1,
+  "gram_sha256": "05aa5b6137cec45bf7fb1524d9fed0847878639df00ebfd63dc261df15452526",
+  "rank": 96,
+  "bound": 8,
+  "suffix": [
+    20
+  ],
+  "nodes_total": 0,
+  "leaves_total": 0,
+  "witness": null,
+  "finished": true,
+  "stack": [],
+  "search_scope": "full lattice up to sign, restricted to suffix",
+  "certificate_status": "COMPLETE_NO_SHORT_VECTOR",
+  "global_minimum_certified": false
+}

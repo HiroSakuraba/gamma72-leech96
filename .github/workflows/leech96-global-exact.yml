@@ -1,0 +1,47 @@
+name: Leech96 global exact SVP framework
+
+on:
+  push:
+    paths:
+      - "leech96_global/**"
+      - ".github/workflows/leech96-global-exact.yml"
+  pull_request:
+    paths:
+      - "leech96_global/**"
+      - ".github/workflows/leech96-global-exact.yml"
+
+jobs:
+  exact-small-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install exact matrix dependency
+        run: python3 -m pip install sympy==1.14.0
+      - name: Exact lattice basis, E8, checkpoint and coverage regressions
+        working-directory: leech96_global
+        run: python3 test_global.py
+      - name: Certify top coefficient 20 partition
+        working-directory: leech96_global
+        run: |
+          python3 exact_svp.py search z16_route/candidate_3cycle_LLL_gram.json --bound 8 --suffix 20 --max-nodes 1000 --state /tmp/complete_top20.json
+          python3 - <<'PY'
+          import json
+          d=json.load(open('/tmp/complete_top20.json'))
+          assert d['finished'] and d['certificate_status']=="COMPLETE_NO_SHORT_VECTOR"
+          assert d['nodes_total']==0 and d['suffix']==[20]
+          PY
+      - name: Bounded full-rank smoke test MUST report incomplete
+        working-directory: leech96_global
+        run: |
+          python3 exact_svp.py search z16_route/candidate_3cycle_LLL_gram.json --bound 8 --max-nodes 1500 --state /tmp/incomplete_search.json
+          python3 - <<'PY'
+          import json
+          d=json.load(open('/tmp/incomplete_search.json'))
+          assert d['nodes_total']==1500 and not d['finished']
+          assert d['certificate_status']=="INCOMPLETE"
+          assert not d['global_minimum_certified']
+          PY
