@@ -72,6 +72,10 @@ Run `python3 z16_candidate_checks/even_layer_certificate.py z16_candidate_checks
 
 The deformed Z/16 candidate now has an exact **complete exclusion of squared norms ≤8 for every vector with exactly five nonzero centered first-half coordinates**, and a separate complete exclusion for **six nonzero first-half coordinates when all six are odd**. The computer-assisted proof uses a necessary squared-distance bound modulo 8 before exact modulo-16 lift checks. It found no short vectors in 56.1 billion and 50.3 billion residue classes, respectively. **The lattice's global minimum remains unproved.** See [the proof and verification report](LEECH96_MOD8_SUPPORT_CERTIFICATE_2026-10-13.md) and the `support_mod8_verify.py` verifier.
 
+### October 13: support-seven odd-syndrome search
+
+An exact Gray-code search ruled out norm ≤8 for all **4,712,260,608** sign patterns with exactly seven nonzero first-half coordinates, each ±1. A broader three-plus-four *modulo-8 syndrome* verifier now checks every centered odd coefficient (±1, ±3, ±5, ±7) for seven-coordinate supports, partitioned into 42 independently verifiable GitHub Actions jobs. The all-odd result must not be treated as complete unless those jobs all succeed. See [the new exact-scope report](LEECH96_SUPPORT7_ODD_CERTIFICATE_2026-10-13.md). **The candidate's global minimum norm remains unproved.**
+
 ## Repository
 
 | Folder | Contents |
